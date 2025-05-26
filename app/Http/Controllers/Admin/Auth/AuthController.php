@@ -16,7 +16,7 @@ class AuthController extends Controller
     {
         $this->authRepository = new AuthRepository();
     }
-    
+
     public function login() {
         return view('admin.auth.login');
     }

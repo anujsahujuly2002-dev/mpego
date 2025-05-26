@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use Illuminate\Http\Request; // ✅ FIXED
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LogoutRepository

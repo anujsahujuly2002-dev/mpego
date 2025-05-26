@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use Spatie\Permission\Models\Permission;
 
+
 class PermissionRepository
 {
     /**
@@ -13,7 +14,7 @@ class PermissionRepository
      */
     public function all()
     {
-        return Permission::all();
+        return Permission::latest();
     }
 
     /**
