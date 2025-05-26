@@ -14,7 +14,6 @@ class LogoutRepository
                 auth()->user()->token()?->revoke();
                 return true;
             }
-
             Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();

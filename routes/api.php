@@ -46,4 +46,5 @@ Route::middleware('auth:api')->group(function() {
     Route::controller(LogoutController::class)->group(function() {
         Route::post('/logout','logout');
     });
+    
 });

@@ -13,6 +13,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::namespace('Auth')->middleware('guest')->group(function() {
+    Route::controller(AuthController::class)->group(function(){
+        Route::get('/','login')->name('login');
+        Route::post('do-login','doLogin')->name('do.login');
+    });
+});
+
+Route::middleware('auth')->group(function(){
+    Route::controller(DashboardController::class)->group(function(){
+        Route::get('/dashboard','dashboard')->name('dashboard');
+        Route::get('/logout','logout')->name('logout');
+    });
+
+    // Permission Mangement Route
+    Route::controller(PermissionController::class)->name('permissions.')->prefix('permissions')->group(function(){
+        Route::get('/','index')->name('index');
+        Route::get("/create",'create')->name('create');
+    });
+
+    Route::controller(UserManagementController::class)->name('users.')->prefix('users')->group(function(){
+        Route::get("/",'index')->name('index');
+    });
 });
