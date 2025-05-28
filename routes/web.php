@@ -31,7 +31,22 @@ Route::middleware('auth')->group(function(){
         Route::get('/','index')->name('index');
         Route::get("/create",'create')->name('create');
         Route::post('/store','store')->name('store');
+        Route::get('/edit/{id}','edit')->name('edit');
+        Route::post('/update','update')->name('update');
+        Route::post('/delete','delete')->name('delete');
     });
+
+    // Role Mangement Route
+
+    Route::controller(RoleController::class)->name('roles.')->prefix('roles')->group(function(){
+        Route::get('/','index')->name('index');
+        Route::get("/create",'create')->name('create');
+        Route::post('/store','store')->name('store');
+        Route::get('/edit/{id}','edit')->name('edit');
+        Route::post('/update','update')->name('update');
+        Route::post('delete','delete')->name('delete');
+    });
+
 
     Route::controller(UserManagementController::class)->name('users.')->prefix('users')->group(function(){
         Route::get("/",'index')->name('index');

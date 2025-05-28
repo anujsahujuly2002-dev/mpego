@@ -69,4 +69,20 @@ class PermissionRepository
         }
         return false;
     }
+
+
+    public function getAllPermissionGroupWise()
+    {
+        $permissions = Permission::all();
+        $groupedPermissions = [];
+
+        foreach ($permissions as $permission) {
+            $group = $permission->group ?? 'default';
+            if (!isset($groupedPermissions[$group])) {
+                $groupedPermissions[$group] = [];
+            }
+            $groupedPermissions[$group][] = $permission;
+        }
+        return $groupedPermissions;
+    }
 }

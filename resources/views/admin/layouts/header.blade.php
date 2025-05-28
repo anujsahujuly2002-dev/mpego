@@ -4,7 +4,7 @@
         <meta charset="utf-8" />
         <title>@stack('title') | {{env('APP_NAME')}}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+        <meta name="csrf_token" content="{{csrf_token()}}" />
         <!-- App favicon -->
         <link rel="shortcut icon" href="{{asset('assets/images/favicon.ico')}}">
 
@@ -13,7 +13,8 @@
 
         <!-- Vendor css -->
         <link href="{{asset('assets/css/vendor.min.css')}}" rel="stylesheet" type="text/css" />
-
+          <!-- Sweet Alert css-->
+        <link href="{{asset('assets/vendor/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
         <!-- App css -->
         <link href="{{asset('assets/css/app.min.css')}}" rel="stylesheet" type="text/css" id="app-style" />
         <!-- Datatables css -->

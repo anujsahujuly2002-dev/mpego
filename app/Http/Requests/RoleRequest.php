@@ -2,12 +2,13 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class PermissionRequest extends FormRequest
+class RoleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,20 +26,19 @@ class PermissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255|unique:permissions,name,',
-            'group' => 'required|string',
-        ];
-    }
-     public function messages(): array
-    {
-        return [
-            'name.required' => 'The permission name is required.',
-            'name.unique' => 'This permission name is already registered.',
-            'group.required' => 'The permission group is required.',
-            'group.string' => 'The permission group must be a string.',
+            'name'=>'required|string|unique:roles,name,'.Request::input('id'),
+            'permissions'=>'required'
         ];
     }
 
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'The role name is required.',
+            'name.unique' => 'This role name is already registered.',
+            'permission.required' => 'At least one permission is required for the role.',
+        ];
+    }
     /**
      * Handle a failed validation attempt.
      *

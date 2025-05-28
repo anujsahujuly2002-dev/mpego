@@ -21082,3 +21082,11 @@ div:where(.swal2-icon).swal2-success
   }
 }
 /* loading CSS end */
+
+.invalid-feedback.permissions-error {
+    display: block;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--ct-form-invalid-color);
+}

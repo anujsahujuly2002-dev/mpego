@@ -4,6 +4,8 @@
 
         <!-- App js -->
         <script src="{{asset('assets/js/app.js')}}"></script>
+        <!-- Sweet Alerts js -->
+        <script src="{{asset('assets/vendor/sweetalert2/sweetalert2.min.js')}}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
         <!-- Datatables js -->
         <script src="{{asset('assets/vendor/datatables.net/js/dataTables.min.js')}}"></script>
