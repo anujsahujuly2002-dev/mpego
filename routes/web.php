@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 Route::namespace('Auth')->middleware(['guest'])->group(function() {
     Route::controller(AuthController::class)->group(function(){
         Route::get('/','login')->name('login');
