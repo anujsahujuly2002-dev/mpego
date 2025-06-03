@@ -81,7 +81,7 @@
     <!-- Custom JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="{{asset('assets/js/custom/common.js')}}"></script>
-     @include('admin.layouts.toastr')
+     {{-- @include('admin.layouts.toastr') --}}
     <script>
         loginForm.onsubmit = async (e)=>{
             e.preventDefault();

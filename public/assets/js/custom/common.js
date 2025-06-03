@@ -1,8 +1,10 @@
 "use strict";
-toastr.options = {
-    positionClass: "toast-bottom-right",
-    preventDuplicates: true,
-};
+ toastr.options = {
+        "closeButton": true,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "timeOut": "5000"
+    };
 const showloader = () => {
     $(".loading").removeClass("d-none");
 };
@@ -134,6 +136,9 @@ const showErrorMessage = async (form, res, formData) => {
     } else if ((await checkStatus(res)) == 500 && !errors.status) {
         toastr.error(errors.message);
     } else if ((await checkStatus(res)) == 403) {
+        toastr.error(errors.message);
+    }
+    else if ((await checkStatus(res)) == 401) {
         toastr.error(errors.message);
     }
 };

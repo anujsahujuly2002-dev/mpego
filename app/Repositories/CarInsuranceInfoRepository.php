@@ -13,4 +13,9 @@ class CarInsuranceInfoRepository {
             $data
         );
     }
+
+    public function getCarInsuranceInfoByUserId(int $userId): ?CarInsuranceInfo
+    {
+        return CarInsuranceInfo::where('user_id', $userId)->with(['carInsuranceInfoImages'])->first();
+    }
 }

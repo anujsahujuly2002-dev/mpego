@@ -12,4 +12,9 @@ class InsuranceImage extends Model
     protected $fillable = [
         'car_insurance_info_id','image'
     ];
+
+    public function getImageAttribute($value)
+    {
+        return env('IMAGE_URL'). '/storage/upload/car-insurance/'.$this->attributes['car_insurance_info_id'] .'/'. $value;
+    }
 }

@@ -20,6 +20,9 @@ class RoleController extends Controller
     }
 
     public function index(Request $request) {
+        if(!auth()->user()->can('role-list')):
+            throw UnauthorizedException::forPermissions(['role-list']);
+        endif;
         if ($request->ajax()) {
             $roles = $this->roleRepository->all();
             return datatables()->of($roles)
@@ -35,12 +38,19 @@ class RoleController extends Controller
                     else:
                         $permission .='<span class="badge rounded-pill bg-secondary">'.ucwords(str_replace('-',' ',$permissions->name)).'</span>';
                     endif;
-                  
+
                 endforeach;
                 return $permission;
             })
              ->addColumn('action', function ($row) {
-                return ' <a href="'.route('admin.roles.edit',$row->id).'" class="btn btn-soft-success btn-icon btn-sm rounded-circle"> <i class="ti ti-pencil"></i></a><a href="javascript: void(0);" class="btn btn-soft-danger btn-icon btn-sm rounded-circle"  onclick="deleteRecord(\''.route('admin.roles.delete').'\','.$row->id.')"> <i class="ti ti-trash"></i></a>';
+                $btn = '';
+                if(auth()->user()->can('role-edit')) :
+                    $btn = ' <a href="'.route('admin.roles.edit',$row->id).'" class="btn btn-soft-success btn-icon btn-sm rounded-circle"> <i class="ti ti-pencil"></i></a>';
+                endif;
+                if(auth()->user()->can('role-delete')) :
+                    $btn .= ' <a href="javascript: void(0);" class="btn btn-soft-danger btn-icon btn-sm rounded-circle"  onclick="deleteRecord(\''.route('admin.roles.delete').'\','.$row->id.')"> <i class="ti ti-trash"></i></a>';
+                endif;
+                return $btn;
             })
             ->rawColumns(['action','permission'])
             ->make(true);
@@ -50,6 +60,9 @@ class RoleController extends Controller
 
     public function create()
     {
+        if(!auth()->user()->can('role-create')):
+            throw UnauthorizedException::forPermissions(['role-create']);
+        endif;
         $permissions = $this->permissionRepository->getAllPermissionGroupWise(); // Assuming you have a method to get all permissions
         return view('admin.role.create',compact('permissions'));
     }
@@ -77,6 +90,9 @@ class RoleController extends Controller
 
     public function edit($id)
     {
+        if(!auth()->user()->can('role-edit')):
+            throw UnauthorizedException::forPermissions(['role-edit']);
+        endif;
         $role = $this->roleRepository->find($id);
         $permissions = $this->permissionRepository->getAllPermissionGroupWise();
         return view('admin.role.edit', compact('role', 'permissions'));
@@ -104,6 +120,14 @@ class RoleController extends Controller
 
     public function delete(Request $request)
     {
+        if (!auth()->user()->can('role-delete')) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'You do not have permission to delete.',
+                ], 403);
+            }
+        }
         try {
             $role = $this->roleRepository->find($request->input('id'));
 

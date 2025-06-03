@@ -28,10 +28,12 @@ Route::namespace('Auth')->group(function() {
 
 Route::controller(CarDetailsController::class)->group(function() {
     Route::post('/car-details','carDetails');
+    Route::post('/get-car-details','getCarDetails');
 });
 
 Route::controller(CarInsuranceInfo::class)->group(function() {
     Route::post('/car-insurance-info','carInsuranceInfo');
+    Route::post('/get-car-insurance-info','getCarInsuranceInfo');
 });
 
 Route::controller(HealthInsuranceController::class)->group(function() {
@@ -45,6 +47,11 @@ Route::controller(TwoServiceController::class)->group(function() {
 Route::middleware('auth:api')->group(function() {
     Route::controller(LogoutController::class)->group(function() {
         Route::post('/logout','logout');
+        Route::post('/change-password','changePassword');
     });
-    
+
+    Route::controller(AccidentDetailsController::class)->group(function() {
+        Route::post('/accident-details','accidentDetails');
+    });
+
 });

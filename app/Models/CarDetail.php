@@ -15,7 +15,22 @@ class CarDetail extends Model
 
     public function setVehicleMakeAttribute($value)
     {
-        dd($value);
         $this->attributes['make'] = $value;
     }
+
+    public function carImages()
+    {
+        return $this->hasMany(CarDetailImage::class, 'car_detail_id', 'id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function getCarImagesOnlyAttribute()
+    {
+        return $this->carImages->pluck('images');
+    }
+
 }

@@ -18,8 +18,8 @@ class PermissionController extends Controller
         $this->permissionRepository = New PermissionRepository ();
     }
     public function index(Request $request) {
-        if(!auth()->user()->can('permisson-list')):
-            throw UnauthorizedException::forPermissions(['permisson-list']);
+        if(!auth()->user()->can('permission-list')):
+            throw UnauthorizedException::forPermissions(['permission-list']);
         endif;
         if($request->ajax()) {
             $permissions = $this->permissionRepository->all();
@@ -28,7 +28,7 @@ class PermissionController extends Controller
                 ->addColumn('action', function ($permission) {
                     $btn = '';
                     if(auth()->user()->can('permission-edit')) :
-                        $btn .= '<a href="'.route('admin.permissions.edit',$permission->id).'" class="link-reset fs-20 p-1"> <i class="ti ti-pencil"></i></a>'; 
+                        $btn .= '<a href="'.route('admin.permissions.edit',$permission->id).'" class="link-reset fs-20 p-1"> <i class="ti ti-pencil"></i></a>';
                     endif;
                     if(auth()->user()->can('permission-delete')) :
                         $btn .= '<a href="javascript: void(0);" class="link-reset fs-20 p-1" onclick="deleteRecord(\''.route('admin.permissions.delete').'\','.$permission->id.')"> <i class="ti ti-trash"></i></a>';
@@ -67,8 +67,8 @@ class PermissionController extends Controller
     }
 
     public function edit($id) {
-        if(!auth()->user()->can('permisson-edit')):
-            throw UnauthorizedException::forPermissions(['permisson-edit']);
+        if(!auth()->user()->can('permission-edit')):
+            throw UnauthorizedException::forPermissions(['permission-edit']);
         endif;
         $permission = $this->permissionRepository->find($id);
         return view('admin.permission.edit', compact('permission'));

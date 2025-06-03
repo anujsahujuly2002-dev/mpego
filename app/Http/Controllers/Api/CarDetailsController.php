@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\CarDetailRequest;
+use App\Http\Resources\Api\CarDetailsResource;
 use App\Models\CarDetailImage;
 use App\Repositories\CardetailRepository;
 use App\Repositories\Upload\UploadImageRepository;
@@ -18,6 +19,7 @@ class CarDetailsController extends Controller
     {
         $this->carDetailRepository = New CardetailRepository;
     }
+
     public function carDetails(CarDetailRequest $request) {
         try {
             $userId = auth()->user()?auth()->user()->id:$request->input('user_id');
@@ -62,4 +64,30 @@ class CarDetailsController extends Controller
     }
 
 
+    public function getCarDetails(Request $request) {
+        try {
+            $userId = auth()->user()?auth()->user()->id:$request->input('user_id');
+            $carDetails = $this->carDetailRepository->getCarDetailsByUserId($userId);
+            if($carDetails):
+                return response()->json([
+                    'status'=>true,
+                    'message'=>"Car Details fetched successfully",
+                    'data'=>New CarDetailsResource($carDetails)
+                ],200);
+            else:
+                return response()->json([
+                    'status'=>false,
+                    'message'=>"No car details found",
+                ],404);
+            endif;
+        } catch (Exception $e) {
+            return response()->json([
+                'status'=>false,
+                'message'=>$e->getMessage()
+            ],500);
+        }
+    }
+
+
 }
+

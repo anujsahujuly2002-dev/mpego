@@ -13,4 +13,10 @@ class CarDetailImage extends Model
     protected $fillable = [
         'car_detail_id','images'
     ];
+
+    public function getImagesAttribute($value)
+    {
+        return env('IMAGE_URL'). '/storage/upload/car-details/'.$this->attributes['car_detail_id'] .'/'. $value;
+    }
+
 }

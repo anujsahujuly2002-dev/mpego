@@ -22,7 +22,6 @@ class SignupController extends Controller
 
     public function signUp(UserStoreRequest $request) {
        try{
-            // dd($request->file('image'));
             $user = $this->signUpRepository->signUp($request->all());
             if(!empty($request->file('image'))):
                 $directory = "upload/user-image/".$user->id;

@@ -14,4 +14,9 @@ class CarInsuranceInfo extends Model
         'carrier',
         'policy_number'
     ];
+
+    public function carInsuranceInfoImages()
+    {
+        return $this->hasMany(InsuranceImage::class, 'car_insurance_info_id', 'id');
+    }
 }
