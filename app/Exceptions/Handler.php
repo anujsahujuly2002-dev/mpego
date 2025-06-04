@@ -51,11 +51,9 @@ class Handler extends ExceptionHandler
 
             return response()->json([
                 'status' => false,
-                'message' => config('app.debug')
-                    ? $exception->getMessage()
-                    : 'Server Error',
-                'file' => $exception->getFile(),
-                'line' => $exception->getLine(),
+                'message' => config('app.debug') ? $exception->getMessage(): 'Server Error',
+                // 'file' => $exception->getFile(),
+                // 'line' => $exception->getLine(),
             ], 500);
         }
 

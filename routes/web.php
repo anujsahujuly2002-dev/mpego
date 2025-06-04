@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('artisan-call',function(){
+    Artisan::call('migrate');
+    // Artisan::call('passport:install');
+    return 'Migration completed';
+});
 Route::namespace('Auth')->middleware(['guest'])->group(function() {
     Route::controller(AuthController::class)->group(function(){
         Route::get('/','login')->name('login');
