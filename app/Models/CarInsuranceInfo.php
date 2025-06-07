@@ -19,4 +19,10 @@ class CarInsuranceInfo extends Model
     {
         return $this->hasMany(InsuranceImage::class, 'car_insurance_info_id', 'id');
     }
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
 }

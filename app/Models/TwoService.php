@@ -16,9 +16,15 @@ class TwoService extends Model
         'emergency_contact_1',
         'emergency_contact_2',
     ];
+
     protected $hidden = [
         'created_at',
         'updated_at',
         'deleted_at',
     ];
+
+    public function twoServiceImages()
+    {
+        return $this->hasMany(TwoServiceImage::class, 'two_services_id', 'id');
+    }
 }

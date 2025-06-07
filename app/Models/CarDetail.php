@@ -13,6 +13,12 @@ class CarDetail extends Model
         'user_id','make','model','color','vin'
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     public function setVehicleMakeAttribute($value)
     {
         $this->attributes['make'] = $value;

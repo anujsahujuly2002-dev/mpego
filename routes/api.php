@@ -38,10 +38,12 @@ Route::controller(CarInsuranceInfo::class)->group(function() {
 
 Route::controller(HealthInsuranceController::class)->group(function() {
     Route::post('/health-insurance','healthInsuranceInfo');
+    Route::post('/get-health-insurance','getHealthInsuranceInfo');
 });
 
 Route::controller(TwoServiceController::class)->group(function() {
     Route::post('/two-service','twoServiceInfo');
+    Route::post('/get-two-service','getTwoServiceInfo');
 });
 
 Route::middleware('auth:api')->group(function() {
@@ -52,6 +54,15 @@ Route::middleware('auth:api')->group(function() {
 
     Route::controller(AccidentDetailsController::class)->group(function() {
         Route::post('/accident-details','accidentDetails');
+    });
+
+
+    Route::controller(AccidentImageController::class)->group(function() {
+        Route::post('/accident-scene-image','accidentSceneImage');
+        Route::post('/get-accident-image','getAccidentImage');
+        Route::post('/vehicle-damage-image','vehicleDamageImage');
+        Route::post('repair-estimate-image','repairEstimateImage');
+        Route::post('/car-seats-image','carSeatsImage');
     });
 
 });

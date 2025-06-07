@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\TwoServiceRepository;
 use App\Http\Requests\Api\TwoServiceRequest;
 use App\Http\Requests\Api\TwoServiceImageRequest;
+use App\Http\Resources\Api\TwoServiceInfoResource;
 use App\Repositories\Upload\UploadImageRepository;
 
 class TwoServiceController extends Controller
@@ -59,6 +60,23 @@ class TwoServiceController extends Controller
                 'status'=>true,
                 'message'=>"Two service info not store, Please try again",
             ],500);
+        endif;
+    }
+
+    public function getTwoServiceInfo() {
+        $userId = auth()->user()?auth()->user()->id:request()->input('user_id');
+        $twoService = $this->twoServiceRepository->getByUserId($userId);
+        if($twoService):
+            return response()->json([
+                'status'=>true,
+                'message'=>"Two service info get succssfully",
+                'data'=>New TwoServiceInfoResource($twoService)
+            ],200);
+        else:
+            return response()->json([
+                'status'=>false,
+                'message'=>"Two service info not found",
+            ],404);
         endif;
     }
 }

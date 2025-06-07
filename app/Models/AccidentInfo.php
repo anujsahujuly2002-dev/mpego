@@ -16,4 +16,10 @@ class AccidentInfo extends Model
         'who_was_with_you',
         'description',
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
 }

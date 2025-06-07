@@ -13,4 +13,9 @@ class HealthInsuranceRepository {
             $data
         );
     }
+
+    public function getHealthInsuranceInfoUsingUserId($userId) :?HealthInsurance
+    {
+        return HealthInsurance::where('user_id', $userId)->with(['healthInsuranceImages'])->first();
+    }
 }

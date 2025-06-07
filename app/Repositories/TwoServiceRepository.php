@@ -63,6 +63,6 @@ class TwoServiceRepository
 
     public function getByUserId($userId)
     {
-        return TwoService::where('user_id', $userId)->first();
+        return TwoService::where('user_id', $userId)->with(['twoServiceImages'])->first();
     }
 }
