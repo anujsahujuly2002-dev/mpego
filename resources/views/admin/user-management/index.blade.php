@@ -82,8 +82,8 @@
                         name: 'role'
                     },
                      {
-                        data: 'role',
-                        name: 'role'
+                        data: 'date_of_birth',
+                        name: 'date_of_birth',
                     },
                     {
                         data: 'action',

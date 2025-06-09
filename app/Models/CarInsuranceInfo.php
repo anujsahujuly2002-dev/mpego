@@ -12,7 +12,8 @@ class CarInsuranceInfo extends Model
     protected $fillable =  [
         'user_id',
         'carrier',
-        'policy_number'
+        'policy_number',
+        'agent_name'
     ];
 
     public function carInsuranceInfoImages()
@@ -25,4 +26,6 @@ class CarInsuranceInfo extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    
 }

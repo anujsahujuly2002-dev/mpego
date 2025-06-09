@@ -55,5 +55,17 @@ Route::middleware('auth')->group(function(){
 
     Route::controller(UserManagementController::class)->name('users.')->prefix('users')->group(function(){
         Route::get("/",'index')->name('index');
+        Route::get('/create','create')->name('create');
+        Route::post('/store','store')->name('store');
+        Route::get('/edit/{id}','edit')->name('edit');
+        Route::post('/update','update')->name('update');
+        Route::post('/delete','delete')->name('delete');
+        Route::get('/view-details/{id}','viewDetails')->name('view.details');
+        Route::get('/car-details/{id}','carDetails')->name('car.details');
+        Route::get('/car-insurance-info/{id}','carInsuranceInfo')->name('car.insurance.info');
+        Route::get('/health-insurance-info/{id}','healthInsuranceInfo')->name('health.insurance.info');
+        Route::get('/two-service-info/{id}','twoServiceInfo')->name('two.service.info');
+        Route::get('/emergency-contact-info/{id}','emergencyContactInfo')->name('emergency.contact.info');
+      
     });
 });

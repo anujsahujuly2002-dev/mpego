@@ -33,4 +33,9 @@ class HealthInsurance extends Model
         return $this->hasMany(HealthInsuranceImage::class, 'health_insurance_id', 'id');
     }
 
+    public function getMediCareAttribute($value)
+    {
+        return $value === '1' ? 'Yes' : 'No';
+    }
+
 }

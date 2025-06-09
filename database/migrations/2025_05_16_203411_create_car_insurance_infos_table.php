@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('carrier');
             $table->string('policy_number');
+            $table->string('agent_name');
             $table->softDeletes();
             $table->timestamps();
         });

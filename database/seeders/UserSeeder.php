@@ -4,11 +4,12 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Faker\Factory as Faker;
+use Faker\Provider\ar_EG\Person;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-
 
 class UserSeeder extends Seeder
 {
@@ -17,11 +18,47 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-         $faker = Faker::create('en_US');
+        $faker = Faker::create('en_US');
+
+        Permission::create([
+            'group'=>'Role',
+            "name"=>"role-delete"
+        ]);
+        Permission::create([
+            'group'=>'Role',
+            "name"=>"role-edit"
+        ]);
+        Permission::create([
+            'group'=>'Role',
+            "name"=>"role-create"
+        ]);
+        Permission::create([
+            'group'=>'Role',
+            "name"=>"role-list"
+        ]);
+
+        Permission::create([
+            'group'=>'permission',
+            "name"=>"permission-delete"
+        ]);
+        Permission::create([
+            'group'=>'permission',
+            "name"=>"permission-edit"
+        ]);
+        Permission::create([
+            'group'=>'permission',
+            "name"=>"permission-create"
+        ]);
+        Permission::create([
+            'group'=>'permission',
+            "name"=>"permission-list"
+        ]);
 
         $role = Role::firstOrCreate([
             'name' => 'super-admin'
         ]);
+
+        $role->givePermissionTo(Permission::all());
 
         $user = User::create([
             'name' => "Mepego",
@@ -37,7 +74,6 @@ class UserSeeder extends Seeder
             'zip_code' => $faker->postcode,
             'country' => $faker->country,
         ]);
-
         $user->assignRole($role);
     }
 }

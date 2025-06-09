@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\UserManagementRepository;
+use Illuminate\Support\Facades\Redis;
 use Spatie\Permission\Exceptions\UnauthorizedException;
 
 class UserManagementController extends Controller
@@ -36,6 +37,9 @@ class UserManagementController extends Controller
                 })
                 ->addColumn('action', function ($row) {
                     $btn = '';
+                    if (auth()->user()->can('user-view')) {
+                        $btn .= ' <a href="'.route('admin.users.view.details',base64_encode($row->id)).'" class="btn btn-soft-primary btn-icon btn-sm rounded-circle"> <i class="ti ti-eye"></i></a>';
+                    }
                     if (auth()->user()->can('user-edit')) {
                         $btn .= '<a href="' . route('admin.users.edit', $row->id) . '" class="btn btn-soft-success btn-icon btn-sm rounded-circle"> <i class="ti ti-pencil"></i></a>';
                     }
@@ -48,5 +52,61 @@ class UserManagementController extends Controller
                 ->make(true);
         endif;
         return view('admin.user-management.index');
+    }
+
+    public function viewDetails ($id) {
+        if (!auth()->user()->can('user-view')) {
+            throw UnauthorizedException::forPermissions(['user-view']);
+        }
+        return view('admin.user-management.view-details');
+    }
+
+    public function carDetails(Request $request,$userId) {
+        if($request->ajax()):
+            $carDetails = $this->userManagementRepository->getCarDetailByUserId(base64_decode($userId));
+            return datatables()->of($carDetails)
+                ->addIndexColumn()
+                ->rawColumns([])
+                ->make(true);
+        endif;
+    }
+
+    public function carInsuranceInfo(Request $request, $userId) {
+        if($request->ajax()):
+            $carInsuranceInfo = $this->userManagementRepository->getCarInsuranceInfoByUserId(base64_decode($userId));
+            return datatables()->of($carInsuranceInfo)
+                ->addIndexColumn()
+                ->rawColumns([])
+                ->make(true);
+        endif;
+    }
+
+    public function healthInsuranceInfo(Request $request, $userId) {
+        if($request->ajax()):
+            $healthInsuranceInfo = $this->userManagementRepository->getHealthInsuranceInfoByUserId(base64_decode($userId));
+            return datatables()->of($healthInsuranceInfo)
+                ->addIndexColumn()
+                ->rawColumns([])
+                ->make(true);
+        endif;
+    }
+    public function twoServiceInfo(Request $request, $userId) {
+        if($request->ajax()):
+            $twoServiceInfo = $this->userManagementRepository->getTwoServiceInfoByUserId(base64_decode($userId));
+            return datatables()->of($twoServiceInfo)
+                ->addIndexColumn()
+                ->rawColumns([])
+                ->make(true);
+        endif;
+    }
+
+    public function emergencyContactInfo(Request $request, $userId) {
+        if($request->ajax()):
+            $emergencyContactInfo = $this->userManagementRepository->getEmergencyContactInfoByUserId(base64_decode($userId));
+            return datatables()->of($emergencyContactInfo)
+                ->addIndexColumn()
+                ->rawColumns([])
+                ->make(true);
+        endif;
     }
 }
