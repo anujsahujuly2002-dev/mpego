@@ -27,6 +27,7 @@ class VehicleDamageImageRequest extends FormRequest
     public function rules(): array
     {
          return [
+             'accident_id' => 'required|integer|exists:accident_infos,id',
             'images' => 'required|array',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:4096',
             'user_id' => Auth::check() ? 'nullable|integer|exists:users,id' : 'required|integer|exists:users,id'

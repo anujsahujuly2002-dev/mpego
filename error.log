@@ -1,0 +1,1 @@
+[Sun Jun 08 13:55:15.671685 2025] [php7:error] [pid 11011] [client ::1:57526] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 7.4.33. in /var/www/mepego/vendor/composer/platform_check.php on line 24

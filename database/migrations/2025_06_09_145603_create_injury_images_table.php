@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vehicle_damage_images', function (Blueprint $table) {
+        Schema::create('injury_images', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate()->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->cascadeOnUpdate();
             $table->unsignedBigInteger('accident_id');
             $table->foreign('accident_id')->references('id')->on('accident_infos')->onDelete('cascade')->cascadeOnUpdate();
             $table->string('images');
-            $table->softDeletes();
+            $table->softDeletes(); // This will add a deleted_at column for soft deletes
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vehicle_damage_images');
+        Schema::dropIfExists('injury_images');
     }
 };

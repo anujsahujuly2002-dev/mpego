@@ -9,6 +9,7 @@ class CarSeatsImage extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'accident_id',
         'user_id',
         'images'
     ];

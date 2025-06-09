@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vehicle_damage_images', function (Blueprint $table) {
+        Schema::create('user_emergencies', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate()->onDelete('cascade');
-            $table->unsignedBigInteger('accident_id');
-            $table->foreign('accident_id')->references('id')->on('accident_infos')->onDelete('cascade')->cascadeOnUpdate();
-            $table->string('images');
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('emergency_contact_name');
+            $table->string('emergency_contact_phone');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vehicle_damage_images');
+        Schema::dropIfExists('user_emergencies');
     }
 };

@@ -2,20 +2,18 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class AccidentInfo extends Model
+class UserEmergency extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
+
     protected $fillable = [
         'user_id',
-        'user_type',
-        'accident_date',
-        'accident_time',
-        'who_was_with_you',
-        'description',
+        'emergency_contact_name',
+        'emergency_contact_phone',
     ];
 
     protected $hidden = [

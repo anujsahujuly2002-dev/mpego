@@ -24,6 +24,7 @@ class AccidentDetailsController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Accident details saved successfully',
+                'data' => $accident
             ], 201);
         } catch (\Exception $e) {
             return response()->json([

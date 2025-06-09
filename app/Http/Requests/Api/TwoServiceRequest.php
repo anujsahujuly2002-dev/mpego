@@ -32,8 +32,8 @@ class TwoServiceRequest extends FormRequest
         $rules += [
             'membership_number' => 'required|string',
             'tow_contact_info' => 'required|string',
-            'emergency_contact_1' => 'required|string|regex:/^\+\d{1,3}-\d{3}-\d{3}-\d{4}$/',
-            'emergency_contact_2' => 'required|string|regex:/^\+\d{1,3}-\d{3}-\d{3}-\d{4}$/',
+            // 'emergency_contact_1' => 'required|string|regex:/^\+\d{1,3}-\d{3}-\d{3}-\d{4}$/',
+            // 'emergency_contact_2' => 'required|string|regex:/^\+\d{1,3}-\d{3}-\d{3}-\d{4}$/',
             'tow_service_card' => 'array',
             'tow_service_card.*' => 'image',
         ];

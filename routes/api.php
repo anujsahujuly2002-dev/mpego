@@ -63,6 +63,12 @@ Route::middleware('auth:api')->group(function() {
         Route::post('/vehicle-damage-image','vehicleDamageImage');
         Route::post('repair-estimate-image','repairEstimateImage');
         Route::post('/car-seats-image','carSeatsImage');
+        Route::post('/injury-image','injuryImage');
+    });
+
+    Route::controller(UserEmergencyController::class)->group(function() {
+        Route::post('/user-emergency','store');
+        Route::post('/get-user-emergency','getUserEmergency');
     });
 
 });

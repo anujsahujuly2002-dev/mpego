@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('membership_number');
             $table->string('tow_contact_info');
-            $table->string('emergency_contact_1');
-            $table->string('emergency_contact_2');
+            $table->string('emergency_contact_1')->nullable();
+            $table->string('emergency_contact_2')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
