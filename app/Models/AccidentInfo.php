@@ -23,4 +23,6 @@ class AccidentInfo extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    
 }

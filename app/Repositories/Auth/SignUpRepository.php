@@ -14,7 +14,7 @@ class SignUpRepository {
     public  function signUp ($data) {
         $this->user = User::create($data);
         if($this->user):
-            $this->sendOtpViaEmail($this->user);
+            // $this->sendOtpViaEmail($this->user);
             return $this->user;
         else:
             return false;

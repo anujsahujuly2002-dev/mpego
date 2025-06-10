@@ -5,12 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CarSeatsImage extends Model
+class AccountDeleteReason extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'accident_id',
-        'user_id',
-        'images'
-    ];
+
+    protected $fillable = ['reason'];
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 }

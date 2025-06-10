@@ -14,4 +14,9 @@ class UserImage extends Model
         'user_id',
         'image'
     ];
+
+    public function getImageAttribute($value)
+    {
+        return  env('IMAGE_URL'). '/storage/upload/user-image/'.$this->attributes['user_id'] .'/'.$value;
+    }
 }

@@ -50,10 +50,13 @@ Route::middleware('auth:api')->group(function() {
     Route::controller(LogoutController::class)->group(function() {
         Route::post('/logout','logout');
         Route::post('/change-password','changePassword');
+        Route::post('account-delete','accountDelete');
+        Route::post('user-token','userToken');
     });
 
     Route::controller(AccidentDetailsController::class)->group(function() {
         Route::post('/accident-details','accidentDetails');
+        Route::get('get-previous-accident','getPreviousAccident');
     });
 
 
@@ -69,6 +72,8 @@ Route::middleware('auth:api')->group(function() {
     Route::controller(UserEmergencyController::class)->group(function() {
         Route::post('/user-emergency','store');
         Route::post('/get-user-emergency','getUserEmergency');
+        Route::get('/help-info','helpInfo');
+        Route::get('/account-delete-reasons','getAccountDeleteReasons');
     });
 
 });

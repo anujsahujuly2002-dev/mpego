@@ -34,4 +34,27 @@ class AccidentDetailsController extends Controller
         }
     }
 
+    public function getPreviousAccident() {
+        try {
+            $userId = auth()->user()->id;
+            $accidents = $this->accidentRepository->getPreviousAccidentByUserId($userId);
+            if ($accidents) {
+                return response()->json([
+                    'status' => true,
+                    'data' => $accidents,
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => "No previous accidents found",
+                ], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => "An error occurred: " . $e->getMessage(),
+            ], 500);
+        }
+    }
+
 }

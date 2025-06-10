@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Api;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class AccidentInfoRequest extends FormRequest
+class UserTokenRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,15 +26,13 @@ class AccidentInfoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "user_type"=>'required|in:driver,passenger',
-            "accident_date"=>'required|date',
-            "accident_time"=>'required|date_format:H:i',
-            'who_was_with_you' => 'required|string|max:255',
-            'description' => 'required|string|max:1000',
+            'device_name'=>'required|string|max:255',
+            'token' => 'required|string|max:255',
+            'device_type' => 'required',
         ];
     }
 
-    /**
+     /**
      * Handle a failed validation attempt.
      *
      * @param  \Illuminate\Contracts\Validation\Validator $validator
@@ -51,5 +50,4 @@ class AccidentInfoRequest extends FormRequest
             ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY
         ));
     }
-
 }

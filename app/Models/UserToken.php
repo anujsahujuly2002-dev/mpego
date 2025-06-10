@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CarSeatsImage extends Model
+class UserToken extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'accident_id',
         'user_id',
-        'images'
+        'device_name', 
+        'token',
+        'device_type',
     ];
+
 }

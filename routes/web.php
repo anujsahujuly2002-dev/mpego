@@ -66,6 +66,11 @@ Route::middleware('auth')->group(function(){
         Route::get('/health-insurance-info/{id}','healthInsuranceInfo')->name('health.insurance.info');
         Route::get('/two-service-info/{id}','twoServiceInfo')->name('two.service.info');
         Route::get('/emergency-contact-info/{id}','emergencyContactInfo')->name('emergency.contact.info');
-      
+    });
+
+    Route::controller(HelpController::class)->name('help.')->prefix('help')->group(function(){
+        Route::get('/','index')->name('index');
+        Route::post('/store','store')->name('store');
+        Route::post('/update','update')->name('update');
     });
 });

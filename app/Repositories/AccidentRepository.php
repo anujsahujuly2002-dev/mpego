@@ -25,4 +25,8 @@ class AccidentRepository {
     public function findById($id) {
         return AccidentInfo::findOrFail($id);
     }
+
+    public function getPreviousAccidentByUserId($userId) {
+        return AccidentInfo::where('user_id', $userId)->get();
+    }
 }

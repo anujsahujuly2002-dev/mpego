@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_emergencies', function (Blueprint $table) {
+        Schema::create('account_delete_reasons', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('emergency_contact_name');
-            $table->string('emergency_contact_phone');
+            $table->string('reason');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_emergencies');
+        Schema::dropIfExists('account_delete_reasons');
     }
 };

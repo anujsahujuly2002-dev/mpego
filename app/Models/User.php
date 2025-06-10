@@ -65,4 +65,9 @@ class User extends Authenticatable
     {
         return $value ? date('M dS Y', strtotime($value)) : NULL;
     }
+
+    public function userImages()
+    {
+        return $this->hasMany(UserImage::class, 'user_id', 'id');
+    }
 }

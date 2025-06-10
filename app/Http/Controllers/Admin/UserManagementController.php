@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\UserManagementRepository;
-use Illuminate\Support\Facades\Redis;
 use Spatie\Permission\Exceptions\UnauthorizedException;
+use Spatie\Permission\Models\Role;
 
 class UserManagementController extends Controller
 {
@@ -37,13 +37,13 @@ class UserManagementController extends Controller
                 })
                 ->addColumn('action', function ($row) {
                     $btn = '';
-                    if (auth()->user()->can('user-view')) {
+                    if (auth()->user()->can('user-view') && empty($row->getRoleNames()->first())) {
                         $btn .= ' <a href="'.route('admin.users.view.details',base64_encode($row->id)).'" class="btn btn-soft-primary btn-icon btn-sm rounded-circle"> <i class="ti ti-eye"></i></a>';
                     }
-                    if (auth()->user()->can('user-edit')) {
+                    if (auth()->user()->can('user-edit') && !empty($row->getRoleNames()->first())) {
                         $btn .= '<a href="' . route('admin.users.edit', $row->id) . '" class="btn btn-soft-success btn-icon btn-sm rounded-circle"> <i class="ti ti-pencil"></i></a>';
                     }
-                    if (auth()->user()->can('user-delete')) {
+                    if (auth()->user()->can('user-delete')  && !empty($row->getRoleNames()->first())) {
                         $btn .= ' <a href="javascript: void(0);" class="btn btn-soft-danger btn-icon btn-sm rounded-circle"  onclick="deleteRecord(\'' . route('admin.users.delete') . '\',' . $row->id . ')"> <i class="ti ti-trash"></i></a>';
                     }
                     return $btn;
@@ -58,7 +58,8 @@ class UserManagementController extends Controller
         if (!auth()->user()->can('user-view')) {
             throw UnauthorizedException::forPermissions(['user-view']);
         }
-        return view('admin.user-management.view-details');
+        $user = $this->userManagementRepository->find(base64_decode($id));
+        return view('admin.user-management.view-details', compact('user'));
     }
 
     public function carDetails(Request $request,$userId) {
@@ -109,4 +110,12 @@ class UserManagementController extends Controller
                 ->make(true);
         endif;
     }
+
+    public function create() {
+        if (!auth()->user()->can('user-create')) 
+        throw UnauthorizedException::forPermissions(['user-create']);
+        $roles = Role::orderBy('name','ASC')->get();
+        return view('admin.user-management.create',compact('roles'));
+    }
+
 }

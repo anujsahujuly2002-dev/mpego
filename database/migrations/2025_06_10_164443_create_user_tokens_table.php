@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_emergencies', function (Blueprint $table) {
+        Schema::create('user_tokens', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('emergency_contact_name');
-            $table->string('emergency_contact_phone');
-            $table->softDeletes();
+            $table->string('device_name');
+            $table->string('token')->unique();
+            $table->string('device_type');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_emergencies');
+        Schema::dropIfExists('user_tokens');
     }
 };

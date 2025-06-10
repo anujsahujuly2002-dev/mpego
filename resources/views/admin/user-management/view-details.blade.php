@@ -6,13 +6,58 @@
  <div class="page-container">
         <div class="row">
             <div class="col-4">
-                <div class="card">
-                    <div class="card-body">
+                <div class="card mb-3" >
+                    <div class="card-body px-4 py-4">
+                        <div class="text-center mb-4">
+                            <img src="{{ $user?->userImages?->first()->image ?? asset('images/default-user.png') }}"
+                                 alt="User Picture"
+                                 class="rounded-circle mb-3 border border-3 border-secondary"
+                                 width="110" height="110">
+                            <h3 class="fw-bold mb-0">{{ $user->name }}</h3>
+                        </div>
+                        <div class="mb-4 d-flex align-items-center">
+                            <span class="fw-bold">Email:</span>
+                            <span class="text-muted ms-2">{{ $user->email }}</span>
+                        </div>
+                        <div class="mb-4 d-flex align-items-center">
+                            <span class="fw-bold">Phone:</span>
+                            <span class="text-muted ms-2">{{ $user->phone }}</span>
+                        </div>
+                        <hr class="my-3" style="border-color: #444;">
+                        <div class="mb-3">
+                            <span class="fw-bold">Address:</span>
+                            <span class="text-muted ms-2">{{ $user->address }}</span>
+                        </div>
+                        <div class="mb-3">
+                            <span class="fw-bold">Street Address:</span>
+                            <span class="text-muted ms-2">{{ $user->street_address }}</span>
+                        </div>
+                        <div class="mb-3">
+                            <span class="fw-bold">Apt Suite:</span>
+                            <span class="text-muted ms-2">{{ $user->apt_suite }}</span>
+                        </div>
+                        <div class="mb-3">
+                            <span class="fw-bold">City:</span>
+                            <span class="text-muted ms-2">{{ $user->city }}</span>
+                        </div>
+                        <div class="mb-3">
+                            <span class="fw-bold">State:</span>
+                            <span class="text-muted ms-2">{{ $user->state }}</span>
+                        </div>
+                        <div class="mb-3">
+                            <span class="fw-bold">Zip Code:</span>
+                            <span class="text-muted ms-2">{{ $user->zip_code }}</span>
+                        </div>
+                        <div>
+                            <span class="fw-bold">Date Of Birth:</span>
+                            <span class="text-muted ms-2">{{ $user->date_of_birth }}</span>
+                        </div>
                     </div> <!-- end card body-->
                 </div> <!-- end card -->
+
             </div>
             <div class="col-8">
-                <div class="card">
+                <div class="card ">
                     <div class="card-body">
                         <ul class="nav nav-tabs nav-bordered mb-3" role="tablist">
                             <li class="nav-item" role="presentation">
