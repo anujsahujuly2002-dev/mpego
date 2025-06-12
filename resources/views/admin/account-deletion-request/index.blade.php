@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @push('title')
-    Role List
+    Account Deletion Request List
 @endpush
 @section('content')
     <div class="page-container">
@@ -8,32 +8,21 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header border-bottom border-dashed d-flex justify-content-between align-items-center">
-                        <h4 class="card-title mb-0 flex-grow-1">Role List</h4>
-                        <a href="{{ route('admin.roles.create') }}" class="btn btn-sm btn-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M12 5l0 14" />
-                                <path d="M5 12l14 0" />
-                            </svg>Add Role
-                        </a>
+                        <h4 class="card-title mb-0 flex-grow-1"> Account Deletion Request List</h4>
                     </div><!-- end card header -->
                     <div class="card-body">
-                        {{-- <h4 class="header-title">Role List</h4> --}}
-                        <table id="permissionList" class="table table-striped dt-responsive nowrap w-100">
+                        {{-- <h4 class="header-title"> Account Deletion Request List</h4> --}}
+                        <table id="accountDeletionRequestList" class="table table-striped dt-responsive nowrap w-100">
                             <thead>
                                 <tr>
                                     <th>Sr No</th>
-                                    <th>Role</th>
-                                    <th>Permission</th>
-                                    <th>Action</th>
+                                    <th>User Name</th>
+                                    <th>Account Delete Reason</th>
+                                    <th>Account Delete Request Date</th>
+                                   
                                 </tr>
                             </thead>
-
-
                             <tbody>
-
                             </tbody>
                         </table>
 
@@ -47,7 +36,7 @@
     <script>
         var table;
         $(function() {
-            table =$("#permissionList").DataTable({
+            table =$("#accountDeletionRequestList").DataTable({
                 processing: true,
                 scrollY: true,
                 scrollX: true,
@@ -55,7 +44,7 @@
                 autoWidth: false,
                 scrollCollapse: true,
                 bSearchable: true,
-                ajax: "{{ route('admin.roles.index') }}",
+                ajax: "{{ route('admin.account.delete.request') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
@@ -63,19 +52,17 @@
                         searchable: false
                     },
                     {
-                        data: 'name',
-                        name: 'name'
+                        data: 'user.name',
+                        name: 'user.name',
                     },
                     {
-                        data: 'permission',
-                        name: 'permission'
+                        data: 'account_delete_reason.reason',
+                        name: 'account_delete_reason.reason',
                     },
                     {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
+                        data: 'created_at',
+                        name: 'created_at',
+                    }
                 ]
             });
         })

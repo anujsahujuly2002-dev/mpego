@@ -17,7 +17,7 @@
                             <div class="col-lg-4 col-md-4">
                                 <label for="group" class="form-label">Role</label>
                                 <div class="mb-3">
-                                    <select class="form-control" data-choices name="choices-single-default"  id="choices-single-default">
+                                    <select class="form-control" data-choices name="role"  id="choices-single-default">
                                         <option value="">Select Role</option>
                                         @foreach($roles as $role)
                                             <option value="{{$role->name}}">{{ucwords(str_replace('-',' ',$role->name))}}</option>
@@ -47,10 +47,59 @@
                                 </div>
                                 <div class="invalid-feedback name-error"></div>
                             </div>
-                             <div class="col-lg-4 col-md-4">
+                            <div class="col-lg-4 col-md-4">
                                 <label for="group" class="form-label">Date Of Birth</label>
                                 <div class="mb-3">
-                                    <input type="text" class="form-control" data-provider="flatpickr" data-date-format="d M, Y"  placeholder="Enter Date Of Birth" name="dob" id="dob">
+                                    <input type="text" class="form-control" data-provider="flatpickr" data-date-format="d M, Y"  placeholder="Enter Date Of Birth" name="date_of_birth" id="date_of_birth">
+                                </div>
+                                <div class="invalid-feedback name-error"></div>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <label for="group" class="form-label">Address</label>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control"  name="address" id="address" placeholder="Enter Address">
+                                </div>
+                                <div class="invalid-feedback name-error"></div>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <label for="group" class="form-label">Street Address</label>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control"  name="street_address" id="street_address" placeholder="Enter Street Address">
+                                </div>
+                                <div class="invalid-feedback name-error"></div>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <label for="group" class="form-label">Apt Suite</label>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control"  name="apt_suite" id="apt_suite" placeholder="Enter Apt Suite">
+                                </div>
+                                <div class="invalid-feedback name-error"></div>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <label for="group" class="form-label">City</label>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control"  name="city" id="city" placeholder="Enter City">
+                                </div>
+                                <div class="invalid-feedback name-error"></div>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <label for="group" class="form-label">State</label>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control"  name="state" id="state" placeholder="Enter State">
+                                </div>
+                                <div class="invalid-feedback name-error"></div>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <label for="group" class="form-label">Country</label>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control"  name="country" id="country" placeholder="Enter country">
+                                </div>
+                                <div class="invalid-feedback name-error"></div>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <label for="group" class="form-label">Zip Code</label>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control"  name="zip_code" id="zip_code" placeholder="Enter Zip Code">
                                 </div>
                                 <div class="invalid-feedback name-error"></div>
                             </div>
@@ -66,9 +115,9 @@
 @endsection
 @push('script')
 <script>
-    roleForm.onsubmit = async (e)=>{
+    userForm.onsubmit = async (e)=>{
         e.preventDefault();
-        makePostRequest("{{route('admin.roles.store')}}",roleForm,'roleForm');
+        makePostRequest("{{route('admin.users.store')}}",userForm,'userForm');
     }
 </script>
 @endpush

@@ -33,6 +33,7 @@
 	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css"/>
          <!-- gridjs css -->
         <link rel="stylesheet" href="{{asset('assets/vendor/gridjs/theme/mermaid.min.css')}}">
+        @stack('css')
     </head>
     <body>
         <div class="loading d-none"></div>

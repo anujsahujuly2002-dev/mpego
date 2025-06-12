@@ -24,5 +24,39 @@ class AccidentInfo extends Model
         'deleted_at',
     ];
 
+    public function users() {
+        return $this->belongsTo(User::class, 'user_id','id');
+    }
     
+    public function getUserTypeAttribute($value) {
+        return ucfirst($value);
+    }
+
+    public function getAccidentDateAttribute($value) {
+        return date('M dS Y', strtotime($value));
+    }
+
+    public function getAccidentTimeAttribute($value) {
+        return date('H:i', strtotime($value));
+    }
+
+    public function accidentSeceneImages() {
+        return $this->hasMany(AccidentSceneImage::class, 'accident_id', 'id');
+    }
+
+    public function vehicalDahicalImages() {
+        return $this->hasMany(VehicleDamageImage::class, 'accident_id', 'id');
+    }
+
+    public function carSeatsImages() {
+        return $this->hasMany(CarSeatsImage::class, 'accident_id', 'id');
+    }
+
+    public function InjuryImages() {
+        return $this->hasMany(InjuryImage::class, 'accident_id', 'id');
+    }
+
+    public function repairEstimateImages() {
+        return $this->hasMany(RepairEstimateImage::class, 'accident_id', 'id');
+    }    
 }

@@ -28,4 +28,16 @@ class HelpRepository   {
     public function getAcountDeleteReasons() {
         return AccountDeleteReason::all();
     }
+
+    public function getAccountDeleteReasonById($id) {
+        return AccountDeleteReason::find($id);
+    }
+
+    public function accountDeleteReasonStore ($data) {
+        return AccountDeleteReason::create($data);
+    }
+
+    public function  accountDeleteReasonUpdate($data,$id) {
+        return AccountDeleteReason::find($id)->update($data);
+    } 
 }

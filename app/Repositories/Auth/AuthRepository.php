@@ -19,10 +19,8 @@ class AuthRepository
     public function attemptLogin(string $identifier, string $password, bool $loginAsSession = false): ?User
     {
         $user = User::where(function ($query) use ($identifier) {
-            $query->where('email', $identifier)
-                  ->orWhere('phone', $identifier);
+            $query->where('email', $identifier)->orWhere('phone', $identifier);
         })->first();
-
         if ($user && Hash::check($password, $user->password)) {
             if ($loginAsSession) {
                 Auth::login($user); // This creates a session for web users

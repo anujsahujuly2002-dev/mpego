@@ -16,6 +16,10 @@ class InjuryImage extends Model
         'accident_id',
         'images'
     ];
+
+    public function getImagesAttribute($value) {
+        return env('IMAGE_URL'). '/storage/upload/injury-image/'.$this->attributes['user_id'].'/'.$this->attributes['accident_id'] .'/'. $value;
+    }
 }
 
 

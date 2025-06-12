@@ -13,4 +13,9 @@ class CarSeatsImage extends Model
         'user_id',
         'images'
     ];
+
+    public function getImagesAttribute()
+    {
+        return env('IMAGE_URL') . '/storage/upload/car-seats-image/' . $this->attributes['user_id'] . '/' . $this->attributes['accident_id'] . '/' . $this->attributes['images'];
+    }
 }

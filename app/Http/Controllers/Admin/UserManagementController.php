@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Exception;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserCreateRequest;
 use App\Repositories\UserManagementRepository;
 use Spatie\Permission\Exceptions\UnauthorizedException;
-use Spatie\Permission\Models\Role;
 
 class UserManagementController extends Controller
 {
@@ -33,7 +35,8 @@ class UserManagementController extends Controller
                     return $user->email;
                 })
                 ->addColumn('role', function ($row) {
-                    return $row->getRoleNames()->implode(', ');
+                    return $row->getRoleNames()->first() ? ucwords(str_replace('-',' ',$row->getRoleNames()->first())) : 'No Role Assigned';
+                    ;
                 })
                 ->addColumn('action', function ($row) {
                     $btn = '';
@@ -114,8 +117,67 @@ class UserManagementController extends Controller
     public function create() {
         if (!auth()->user()->can('user-create')) 
         throw UnauthorizedException::forPermissions(['user-create']);
-        $roles = Role::orderBy('name','ASC')->get();
+        $roles = Role::whereNot('name','super-admin')->orderBy('name','ASC')->get();
         return view('admin.user-management.create',compact('roles'));
+    }
+
+    public function store(UserCreateRequest $request) {
+        if (!auth()->user()->can('user-create')) {
+            throw UnauthorizedException::forPermissions(['user-create']);
+        }
+        try {
+            $data = $request->all();
+            $data['password'] = 'Mepego@123#';
+            $user = $this->userManagementRepository->store($data);
+            if ($user) {
+                return response()->json([
+                    'status' => true,
+                    'message' => "User information stored successfully",
+                    'url' => route('admin.users.index')
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => "User information not stored, Please try again",
+                ], 500);
+            }
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function delete(Request $request) {
+        if (!auth()->user()->can('user-delete')) {
+             if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'You do not have permission to delete users.',
+                ], 403);
+            }
+        }
+        try {
+            $user = $this->userManagementRepository->find($request->input('id'));
+            if ($user) {
+                $user->delete();
+                return response()->json([
+                    'status' => true,
+                    'message' => "User deleted successfully",
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => "User not found",
+                ], 404);
+            }
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
 }

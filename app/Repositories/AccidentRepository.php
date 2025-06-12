@@ -23,10 +23,14 @@ class AccidentRepository {
     }
 
     public function findById($id) {
-        return AccidentInfo::findOrFail($id);
+        return AccidentInfo::with([ 'users','accidentSeceneImages','vehicalDahicalImages','carSeatsImages','InjuryImages','repairEstimateImages'])->findOrFail($id);
     }
 
     public function getPreviousAccidentByUserId($userId) {
         return AccidentInfo::where('user_id', $userId)->get();
+    }
+
+    public function all() {
+        return AccidentInfo::with(['users'])->latest();
     }
 }

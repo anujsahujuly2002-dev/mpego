@@ -71,4 +71,11 @@ class UserManagementRepository
         return UserEmergency::where('user_id',$userId)->get();
     }
 
+    public function store($data) {
+        // dd($data);
+        $user = User::create($data);
+        $user->assignRole($data['role']);
+        return $user;
+    }
+
 }

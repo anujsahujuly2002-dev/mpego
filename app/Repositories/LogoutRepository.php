@@ -64,4 +64,24 @@ class LogoutRepository
             return false;
         }
     }
+
+    public function getAccountDeleteRequest() {
+        return AccountDeleteRequest::latest()->with(['user','accountDeleteReason'])->get();
+    }
+
+    public function getDeleteAccountList(){
+        return User::onlyTrashed()->latest();
+            
+    }
+
+    public function deleteAccountRecover($id): bool
+    {
+        try {
+            $user = User::withTrashed()->findOrFail($id);
+            $user->restore();
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
 }

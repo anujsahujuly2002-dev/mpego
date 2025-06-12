@@ -28,7 +28,10 @@ Route::namespace('Auth')->middleware(['guest'])->group(function() {
 Route::middleware('auth')->group(function(){
     Route::controller(DashboardController::class)->group(function(){
         Route::get('/dashboard','dashboard')->name('dashboard');
+        Route::get('/account-delete-request','accountDeleteRequest')->name('account.delete.request');
         Route::get('/logout','logout')->name('logout');
+        Route::get('delete-account-list','deleteAccountList')->name('delete.account.list');
+        Route::post('delete-account-recover','deleteAccountRecover')->name('delete.account.recover');
     });
 
     // Permission Mangement Route
@@ -72,5 +75,19 @@ Route::middleware('auth')->group(function(){
         Route::get('/','index')->name('index');
         Route::post('/store','store')->name('store');
         Route::post('/update','update')->name('update');
+    });
+
+    Route::controller(AccountDeletionReasonController::class)->name('account.deletion.')->prefix('account-deletion')->group(function(){
+        Route::get('/','index')->name('index');
+        ROute::get('/create','create')->name('create');
+        Route::post('/store','store')->name('store');
+        Route::get('/edit/{id}','edit')->name('edit');
+        Route::post('/update','update')->name('update');
+        Route::post('/delete','delete')->name('delete');
+    });
+
+    Route::controller(AccidentDetailsController::class)->name('accident.')->prefix('accident')->group(function(){
+        Route::get('/','index')->name('index');
+        Route::get('/accident-image/{id}','accidentImage')->name('image');
     });
 });

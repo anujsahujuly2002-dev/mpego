@@ -70,4 +70,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserImage::class, 'user_id', 'id');
     }
+
+    public function setDateOfBirthAttribute($value)
+    {
+        $this->attributes['date_of_birth'] = $value ? date('Y-m-d', strtotime($value)) : NULL;
+    }
 }

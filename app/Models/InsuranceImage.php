@@ -15,6 +15,11 @@ class InsuranceImage extends Model
 
     public function getImageAttribute($value)
     {
-        return env('IMAGE_URL'). '/storage/upload/car-insurance/'.$this->attributes['car_insurance_info_id'] .'/'. $value;
+        return env('IMAGE_URL'). '/storage/upload/car-insurance/'. $this->carInsuranceInfo->user_id .'/'. $value;
+    }
+
+    public function carInsuranceInfo()
+    {
+        return $this->belongsTo(CarInsuranceInfo::class, 'car_insurance_info_id');
     }
 }

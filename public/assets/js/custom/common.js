@@ -190,76 +190,19 @@ const deleteRecord = async (url, id) => {
     });
 };
 
-const getDestinationUsingCountryId = async (value) => {
-    try {
-        showloader();
-        const response = await fetch(
-            SITE_URL + "/admin/common/get-destination-by-country-id",
-            {
-                method: "post",
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf_token"]').attr(
-                        "content"
-                    ),
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ id: value }),
-            }
-        );
-        const res = await response.json();
-        let html = `<option value="">Select Destination</option>`;
-        res.data.forEach((value) => {
-            html += `<option value="${value.id}">${value.name}</option>`;
-        });
-        $(".destination").html("");
-        $(".destination").html(html);
-        hideLoader();
-    } catch (error) {
-        hideLoader();
-        toastr.error(error.message);
-    }
-};
-
-const generateSlug = (value, id) => {
-    $("#" + id).val(value.toLowerCase().split(" ").join("-"));
-};
-
-const changeStatus = async (url, id, status) => {
-    try {
-        showloader();
-        const response = await fetch(url, {
-            method: "post",
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf_token"]').attr("content"),
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ id: id, status: status }),
-        });
-        const res = await response.json();
-        if (res.status) {
-            table.draw();
-            hideLoader();
-            toastr.success(res.message);
-        } else {
-            hideLoader();
-            toastr.error(res.message);
-        }
-    } catch (error) {
-        hideLoader();
-        toastr.error(error.message);
-    }
-};
-
-const generateDaysAccordingOFNight = (value, id) => {
-    $("#" + id).val(parseInt(value) + 1);
-};
-
-const getPointOfIntersetDestinationWsie = async (id, selector) => {
-    try {
-        showloader();
-        const response = await fetch(
-            SITE_URL + "/admin/common/get-activity-by-destination-id",
-            {
+const restoreRecord  = async (url, id) => {
+     Swal.fire({
+        title: "Are you sure?",
+        text: "You want to restore this record?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, restore it!",
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            showloader();
+            const response = await fetch(url, {
                 method: "post",
                 headers: {
                     "X-CSRF-TOKEN": $('meta[name="csrf_token"]').attr(
@@ -268,18 +211,29 @@ const getPointOfIntersetDestinationWsie = async (id, selector) => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ id: id }),
+            });
+            const res = await response.json();
+            if (res.status) {
+                table.draw();
+                hideLoader();
+                Swal.fire({
+                    title: "Restored!",
+                    text: res.message,
+                    icon: "success",
+                });
+            } else {
+                hideLoader();
+                Swal.fire({
+                    title: "Oops...!",
+                    text: res.message,
+                    icon: "error",
+                });
             }
-        );
-        const res = await response.json();
-        let data = res.data;
-        console.log(res.data);
-        console.log(selector, "end", $(document).find(`#${selector}`));
-        // append
-        $(`#${selector}`).html(data);
-        console.log(selector, "next", $(`#${selector}`));
-        hideLoader();
-    } catch (error) {
-        hideLoader();
-        toastr.error(error.message);
-    }
-};
+        }
+    });
+}
+
+
+
+
+

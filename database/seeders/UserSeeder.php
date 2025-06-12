@@ -53,13 +53,10 @@ class UserSeeder extends Seeder
             'group'=>'permission',
             "name"=>"permission-list"
         ]);
-
         $role = Role::firstOrCreate([
             'name' => 'super-admin'
         ]);
-
         $role->givePermissionTo(Permission::all());
-
         $user = User::create([
             'name' => "Mepego",
             'email' => "mepego@gmail.com",

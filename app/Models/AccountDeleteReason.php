@@ -11,4 +11,8 @@ class AccountDeleteReason extends Model
 
     protected $fillable = ['reason'];
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+
+    public function accountDeleteRequest(){
+        return $this->hasMany(AccountDeleteRequest::class, 'reason_id');
+    }
 }

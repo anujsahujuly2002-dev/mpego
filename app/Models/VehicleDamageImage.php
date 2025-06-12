@@ -14,4 +14,8 @@ class VehicleDamageImage extends Model
         'user_id',
         'images'
     ];
+
+    public function getImagesAttribute($value) {
+        return env('IMAGE_URL'). '/storage/upload/vehicle-damage-image/'.$this->attributes['user_id'].'/'.$this->attributes['accident_id'] .'/'. $value;
+    }
 }

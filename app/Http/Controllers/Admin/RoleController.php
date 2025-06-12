@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\RoleRepository;
 use Spatie\Permission\Models\Permission;
 use App\Repositories\PermissionRepository;
+use Spatie\Permission\Exceptions\UnauthorizedException;
 
 class RoleController extends Controller
 {
