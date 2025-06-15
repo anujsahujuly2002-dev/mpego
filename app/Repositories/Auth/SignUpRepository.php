@@ -63,7 +63,14 @@ class SignUpRepository {
     }
 
     public function storeUserImage($data) {
-        return  UserImage::create($data);
+        return  UserImage::updateOrCreate(['user_id' => $data['user_id']], $data);
     }
 
+    public function storeUserInsurenceImage($data) {
+        return UserImage::updateOrCreate(['user_id' => $data['user_id']], $data);
+    }
+
+    public function getExchangeIdAndInsurance($userId) {
+        return UserImage::where('user_id', $userId)->first();
+    }
 }

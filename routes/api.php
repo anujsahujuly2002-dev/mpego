@@ -57,6 +57,8 @@ Route::middleware('auth:api')->group(function() {
     Route::controller(AccidentDetailsController::class)->group(function() {
         Route::post('/accident-details','accidentDetails');
         Route::get('get-previous-accident','getPreviousAccident');
+        Route::post('exchange-id-and-insurance','exchangeIdAndInsurance');
+        Route::get('get-exhange-id-and-insurance','getExchangeIdAndInsurance');
     });
 
 

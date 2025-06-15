@@ -12,11 +12,23 @@ class UserImage extends Model
 
     protected $fillable = [
         'user_id',
-        'image'
+        'image',
+        'insurance_image',
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
     public function getImageAttribute($value)
     {
-        return  env('IMAGE_URL'). '/storage/upload/user-image/'.$this->attributes['user_id'] .'/'.$value;
+        return !is_null($value) ? env('IMAGE_URL'). '/storage/upload/user-image/'.$this->attributes['user_id'] .'/'.$value:NULL;
+    }
+
+    public function getInsuranceImageAttribute($value)
+    {
+        return !is_null($value) ?  env('IMAGE_URL'). '/storage/upload/insurance-image/'.$this->attributes['user_id'] .'/'.$value:NULL;
     }
 }
