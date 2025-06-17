@@ -19,6 +19,7 @@ Route::namespace('Auth')->group(function() {
             Route::post('sign-up','signUp');
             Route::post('/verify-otp','verifyOtp');
             Route::post('resend-otp','resendOTP');
+            Route::post("forget-password","forgetPaswordLink");
         });
         Route::controller(AuthController::class)->group(function(){
             Route::post('login','login');

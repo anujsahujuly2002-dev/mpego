@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\ForgetPasswordRequest;
 use App\Http\Requests\Auth\ResendOTPRequest;
 use App\Http\Requests\Auth\UserStoreRequest;
 use App\Http\Requests\Auth\VerifyOtpRequest;
+use App\Repositories\Auth\ForgetPasswordRepository;
 use App\Repositories\Auth\SignUpRepository;
 use App\Repositories\Upload\UploadImageRepository;
 use Exception;
@@ -13,11 +15,12 @@ use Illuminate\Http\Request;
 
 class SignupController extends Controller
 {
-    private $signUpRepository ;
+    private $signUpRepository,$forgetPasswordRepository ;
 
     public function __construct()
     {
         $this->signUpRepository = New SignUpRepository;
+        $this->forgetPasswordRepository = New ForgetPasswordRepository();
     }
 
     public function signUp(UserStoreRequest $request) {
@@ -94,6 +97,28 @@ class SignupController extends Controller
                 'status'=>false,
                 'message'=>$e->getMessage()
             ],500);
+        }
+    }
+
+    public function forgetPaswordLink(ForgetPasswordRequest $request) {
+        try {
+            if($this->forgetPasswordRepository->sendForgetPasswordLink($request->input("email"))):
+                return response()->json([
+                    'status' => true,
+                    'message' => "Forgot Password link sent successfully to your registered email address.",
+                ]);
+            else:
+                return response()->json([
+                    'status' => false,
+                    'message' => "Unable to send forget password reset link."
+                ], 400);
+
+            endif;
+        } catch (Exception $e) {
+            return response()->json([
+            'status'=>false,
+            'message'=>$e->getMessage()
+        ],500);
         }
     }
 }

@@ -22,7 +22,9 @@ Route::namespace('Auth')->middleware(['guest'])->group(function() {
     Route::controller(AuthController::class)->group(function(){
         Route::get('/','login')->name('login');
         Route::post('do-login','doLogin')->name('do.login');
+        Route::get("forget-password-link","forgetPasswordResetLink")->name('forget.password.link');
     });
+
 });
 
 Route::middleware('auth')->group(function(){
