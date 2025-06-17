@@ -91,6 +91,7 @@ class AccidentDetailsController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
+                // "error"=>$e->getMessage(),
                 'message' => 'Failed to save exchange ID and insurance details',
             ], 500);
         }
@@ -100,9 +101,15 @@ class AccidentDetailsController extends Controller
         try {
             $userId = auth()->user()->id;
             $getExchangeIdAndInsurance = $this->signUpRepository->getExchangeIdAndInsurance($userId);
-
+            if(is_null($getExchangeIdAndInsurance)):
+                return response()->json([
+                    'status'=>false,
+                    "message"=>"Exchange ID and insurance details  not found"
+                ]);
+            endif;
             return response()->json([
                 'status' => true,
+                "message"=>"Exchange ID and insurance details fetched successfully",
                 'data' =>$getExchangeIdAndInsurance,
             ], 200);
         } catch (\Exception $e) {
