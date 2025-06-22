@@ -3,11 +3,11 @@
 
 namespace App\Repositories;
 
+use App\Models\AccidentContact;
 use App\Models\AccidentInfo;
 
 class AccidentRepository {
     public function create(array $data) {
-        // Assuming you have an Accident model
         return AccidentInfo::create($data);
     }
 
@@ -23,7 +23,7 @@ class AccidentRepository {
     }
 
     public function findById($id) {
-        return AccidentInfo::with([ 'users','accidentSeceneImages','vehicalDahicalImages','carSeatsImages','InjuryImages','repairEstimateImages'])->findOrFail($id);
+        return AccidentInfo::with([ 'users','accidentSeceneImages','vehicalDahicalImages','carSeatsImages','InjuryImages','repairEstimateImages','accidentContact'])->findOrFail($id);
     }
 
     public function getPreviousAccidentByUserId($userId) {
@@ -32,5 +32,14 @@ class AccidentRepository {
 
     public function all() {
         return AccidentInfo::with(['users'])->latest();
+    }
+
+    public function createAccidentContact($data,$accidentId,$userId) {
+        return AccidentContact::create([
+            'user_id'=>$userId,
+            "accident_id"=>$accidentId,
+            "name"=>$data['name'],
+            'contact_no'=>$data['contact_no']
+        ]);
     }
 }

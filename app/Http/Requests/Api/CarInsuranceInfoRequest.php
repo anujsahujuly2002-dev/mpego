@@ -32,7 +32,7 @@ class CarInsuranceInfoRequest extends FormRequest
         $rules += [
             'carrier' => 'required|string',
             'policy_number'        => 'required|string',
-            'agent_name'        => 'required|string',
+            // 'agent_name'        => 'required|string',
             'insurance_card'        => 'array',
             'insurance_card.*' => 'image',
         ];

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests;
-
-use Illuminate\Foundation\Http\FormRequest;
+namespace App\Http\Requests\Api;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class AccidentInfoRequest extends FormRequest
+class MedicalRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,27 +24,22 @@ class AccidentInfoRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            "user_type"=>'required|in:driver,passenger',
-            "accident_date"=>'required|date',
-            "accident_time"=>'required|date_format:H:i',
-            'who_was_with_you' => 'required|string|max:255',
-            'description' => 'required|string|max:1000',
-            'contacts'=>'required|array|max:4',
-            'contacts.*.name'=>"required|string",
-            "contacts.*.contact_no"=>["required",'regex:/^\+\d{1,3}-\d{3}-\d{3}-\d{4}$/']
+        $rules = [];
+        if (!Auth::check()) {
+            $rules['user_id'] = 'required|integer|exists:users,id';
+        }
+        $rules += [
+            'medi_care' => 'required|in:yes,no',
+            'policy_number'        => 'required|string',
+            'insurer_name'        => 'required|string',
+            'insurance_carrier'        => 'required|string',
+            'upload_medicare' =>'array',
+            'upload_medicare.*' => 'image',
         ];
+        return $rules;
     }
 
-    public function messages()
-    {
-        return [
-            'contacts.*.contact_no.required' => 'Each contact must have a contact number.',
-            'contacts.*.contact_no.regex' => 'Contact numbers must be in the format +CCC-NNN-NNN-NNNN (e.g., +123-456-789-1234).',
-        ];
-    }
-
-    /**
+     /**
      * Handle a failed validation attempt.
      *
      * @param  \Illuminate\Contracts\Validation\Validator $validator
@@ -62,5 +57,4 @@ class AccidentInfoRequest extends FormRequest
             ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY
         ));
     }
-
 }

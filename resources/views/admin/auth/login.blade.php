@@ -6,7 +6,7 @@
     <title>Login | {{env('APP_NAME')}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="{{asset('assets/images/favicon.ico')}}">
 
     <!-- Theme Config Js -->
     <script src="{{asset('assets/js/config.js')}}"></script>
@@ -21,6 +21,21 @@
 
     <!-- Icons css -->
     <link href="{{asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
+    <style>
+        .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.logo-img {
+    max-width: 300px;
+    height: auto;
+    display: block;
+}
+    </style>
 </head>
 
 <body>
@@ -28,10 +43,10 @@
     <div class="auth-bg d-flex min-vh-100">
         <div class="row g-0 justify-content-center w-100 m-xxl-5 px-xxl-4 m-3">
             <div class="col-xxl-3 col-lg-5 col-md-6">
-                {{-- <a href="{{route('admin.login')}}" class="auth-brand d-flex justify-content-center mb-2">
+                <a href="{{route('admin.login')}}" class="auth-brand d-flex justify-content-center mb-2 logo-container">
                     <img src="{{asset('assets/images/logo-dark.png')}}" alt="dark logo" height="26" class="logo-dark">
-                    <img src="{{asset('assets/images/logo.png')}}" alt="logo light" height="26" class="logo-light">
-                </a> --}}
+                    <img src="{{asset('assets/images/logo-dark.png')}}" alt="logo light" class="logo-img">
+                </a>
 
                 {{-- <p class="fw-semibold mb-4 text-center text-muted fs-15">Admin Panel</p> --}}
 

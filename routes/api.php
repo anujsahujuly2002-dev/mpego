@@ -24,6 +24,10 @@ Route::namespace('Auth')->group(function() {
         Route::controller(AuthController::class)->group(function(){
             Route::post('login','login');
         });
+
+        Route::controller(UserEmergencyController::class)->group(function(){
+            Route::post('/user-emergency','store');
+        });
     });
 });
 
@@ -40,6 +44,8 @@ Route::controller(CarInsuranceInfo::class)->group(function() {
 Route::controller(HealthInsuranceController::class)->group(function() {
     Route::post('/health-insurance','healthInsuranceInfo');
     Route::post('/get-health-insurance','getHealthInsuranceInfo');
+    Route::post("medi-cal-store","mediCalStore");
+    Route::post("get-medi-cal-info","getMedicalInfo");
 });
 
 Route::controller(TwoServiceController::class)->group(function() {
@@ -70,10 +76,11 @@ Route::middleware('auth:api')->group(function() {
         Route::post('repair-estimate-image','repairEstimateImage');
         Route::post('/car-seats-image','carSeatsImage');
         Route::post('/injury-image','injuryImage');
+        Route::post("police-report-image","policeReportImage");
     });
 
     Route::controller(UserEmergencyController::class)->group(function() {
-        Route::post('/user-emergency','store');
+
         Route::post('/get-user-emergency','getUserEmergency');
         Route::get('/help-info','helpInfo');
         Route::get('/account-delete-reasons','getAccountDeleteReasons');

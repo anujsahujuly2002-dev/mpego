@@ -5,16 +5,18 @@ namespace App\Http\Controllers\Api;
 use App\Models\InjuryImage;
 use Illuminate\Http\Request;
 use App\Models\CarSeatsImage;
+use App\Models\PoliceReportImage;
 use App\Models\AccidentSceneImage;
 use App\Models\VehicleDamageImage;
 use App\Models\RepairEstimateImage;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\injuryImageRequest;
 use App\Http\Requests\CarSeatsImageRequest;
 use App\Http\Requests\VehicleDamageImageRequest;
 use App\Http\Requests\RepairEstimateImageRequest;
 use App\Repositories\Upload\UploadImageRepository;
+use App\Http\Requests\Api\PoliceReportImageRequest;
 use App\Http\Requests\Api\AccidentSceneImageRequest;
-use App\Http\Requests\injuryImageRequest;
 
 class AccidentImageController extends Controller
 {
@@ -103,7 +105,6 @@ class AccidentImageController extends Controller
         foreach ($request->file('images') as $file) {
             $image = new UploadImageRepository($file, $directory);
             $imageName = $image->upload();
-            // Assuming you have a model for injury images
             InjuryImage::create([
                 'accident_id' => $request->input('accident_id'),
                 'user_id' => $userId,
@@ -113,6 +114,25 @@ class AccidentImageController extends Controller
         return response()->json([
             'status' => true,
             'message' => "Injury image uploaded successfully",
+        ], 200);
+    }
+
+
+    public function policeReportImage(PoliceReportImageRequest $request) {
+        $userId = auth()->user() ? auth()->user()->id : request()->input('user_id');
+        $directory = "upload/police-report-image/" . $userId. '/' . $request->input('accident_id');
+        foreach ($request->file('images') as $file) {
+            $image = new UploadImageRepository($file, $directory);
+            $imageName = $image->upload();
+            PoliceReportImage::create([
+                'accident_id' => $request->input('accident_id'),
+                'user_id' => $userId,
+                'image' => $imageName
+            ]);
+        }
+        return response()->json([
+            'status' => true,
+            'message' => "police report image uploaded successfully",
         ], 200);
     }
 

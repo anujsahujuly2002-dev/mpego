@@ -2,10 +2,11 @@
 
 namespace App\Repositories\Auth;
 
-use App\Models\ForgetPasswordToken;
 use App\Models\User;
-use App\Notifications\ForgetPasswordNotification;
 use Illuminate\Support\Str;
+use App\Models\ForgetPasswordToken;
+use Illuminate\Support\Facades\Hash;
+use App\Notifications\ForgetPasswordNotification;
 
 class ForgetPasswordRepository {
 
@@ -33,5 +34,19 @@ class ForgetPasswordRepository {
         ]);
         $getUserDetails->notify(New ForgetPasswordNotification($getUserDetails->name,$url));
         return true;
+    }
+
+    public function checkTokenValid($token) {
+        return ForgetPasswordToken::where('token',$token)->first();
+    }
+
+    public function changePassword($user_id,$password) {
+        $user = User::where("id",$user_id)->update([
+            'password'=>Hash::make($password)
+        ]);
+
+        return ForgetPasswordToken::where("user_id",$user_id)->update([
+            'expires_at'=>now()
+        ]);
     }
 }

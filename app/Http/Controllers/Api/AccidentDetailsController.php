@@ -24,15 +24,22 @@ class AccidentDetailsController extends Controller
             $data =$request->all();
             $data['user_id'] = auth()->id(); // Assuming the user is authenticated
             $accident = $this->accidentRepository->create($data);
+            if(!empty($data['contacts'])):
+                foreach($data['contacts'] as $contacts):
+                    $this->accidentRepository->createAccidentContact($contacts,$accident->id ,auth()->id());
+                endforeach;
+            endif;
+            $accidentDetails =  $this->accidentRepository->findById($accident->id);
             return response()->json([
                 'status' => true,
                 'message' => 'Accident details saved successfully',
-                'data' => $accident
-            ], 201);
+                'data' => $accidentDetails
+            ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
                 'message' => 'Failed to save accident details',
+                // "error"=>$e->getMessage(),
             ], 500);
         }
     }
@@ -118,6 +125,10 @@ class AccidentDetailsController extends Controller
                 'message' => "An error occurred: " . $e->getMessage(),
             ], 500);
         }
+    }
+
+    public function policeReportImage() {
+        
     }
 
 }

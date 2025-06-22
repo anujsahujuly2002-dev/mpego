@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\medicalImage;
 use App\Http\Controllers\Controller;
+use App\Models\HealthInsuranceImage;
+use App\Http\Requests\Api\MedicalRequest;
 use App\Repositories\HealthInsuranceRepository;
 use App\Http\Requests\Api\HealthInsuranceRequest;
-use App\Http\Resources\Api\HealthInsurenceInfoResource;
-use App\Models\HealthInsuranceImage;
 use App\Repositories\Upload\UploadImageRepository;
+use App\Http\Resources\Api\HealthInsurenceInfoResource;
+use App\Http\Resources\Api\MedicalResource;
+use Exception;
 
 class HealthInsuranceController extends Controller
 {
@@ -67,5 +71,64 @@ class HealthInsuranceController extends Controller
                 'message' => "Health insurance info not found",
             ], 404);
         endif;
+    }
+
+    public function mediCalStore(MedicalRequest $request) {
+        $userId = auth()->user() ? auth()->user()->id : $request->input('user_id');
+        $data = $request->only(['medi_care', 'policy_number', 'insurer_name', 'insurance_carrier']);
+        $data['user_id'] = $userId;
+        $medical = $this->healthInsuranceRepository->mediCalStore($data);
+        if (!empty($request->file('image'))):
+            $checkImageExists = medicalImage::where('medical_id', $medical->id)->get();
+            if ($checkImageExists->count() > 0):
+                $checkImageExists->each(fn($q) => $q->delete());
+            endif;
+            $directory = "upload/medical-image/" . $userId.'/'.$medical->id;
+            foreach ($request->file('image') as $file):
+                $image = new UploadImageRepository($file, $directory);
+                $imageName = $image->upload();
+                medicalImage::create([
+                    'medical_id' => $medical->id,
+                    'image' => $imageName
+                ]);
+            endforeach;
+        endif;
+        if ($medical):
+            return response()->json([
+                'status' => true,
+                'message' => "Medi Cal info store succssfully",
+            ], 200);
+        else:
+            return response()->json([
+                'status' => true,
+                'message' => "Medi Cal info not store, Please try again",
+            ], 500);
+        endif;
+    }
+
+    public function getMedicalInfo() {
+        try {
+            $userId = auth()->user() ? auth()->user()->id :request()->input('user_id');
+            $medical = $this->healthInsuranceRepository->getMedicalInfoUsingUserId($userId);
+            if ($medical):
+                return response()->json([
+                    'status' => true,
+                    'message' => "Medical info get succssfully",
+                    'data' =>New MedicalResource($medical)
+                ], 200);
+            else:
+                return response()->json([
+                    'status' => false,
+                    'message' => "Medical info not found",
+                ], 404);
+            endif;
+        } catch (Exception $e) {
+             return response()->json([
+                'status' => true,
+                'message' => "Medi Cal info not store, Please try again",
+                "file"=>$e->getMessage()
+            ], 500);
+        }
+
     }
 }

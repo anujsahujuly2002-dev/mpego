@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('car_insurance_infos', function (Blueprint $table) {
+        Schema::create('medical_images', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('carrier');
-            $table->string('policy_number');
-            $table->string('agent_name')->nullable();
+            $table->unsignedBigInteger('medical_id');
+            $table->foreign('medical_id')->references('id')->on('medicals')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('image');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('car_insurance_infos');
+        Schema::dropIfExists('medical_images');
     }
 };

@@ -23,6 +23,7 @@ Route::namespace('Auth')->middleware(['guest'])->group(function() {
         Route::get('/','login')->name('login');
         Route::post('do-login','doLogin')->name('do.login');
         Route::get("forget-password-link","forgetPasswordResetLink")->name('forget.password.link');
+        Route::post("change-password","changePassword")->name('change.password');
     });
 
 });

@@ -23,7 +23,7 @@ class ChangePasswordRepository
         }
 
         return $user->update([
-            'password' => Hash::make($newPassword),
+            'password' => $newPassword,
         ]);
     }
 }

@@ -27,7 +27,7 @@ class AccidentInfo extends Model
     public function users() {
         return $this->belongsTo(User::class, 'user_id','id');
     }
-    
+
     public function getUserTypeAttribute($value) {
         return ucfirst($value);
     }
@@ -58,5 +58,9 @@ class AccidentInfo extends Model
 
     public function repairEstimateImages() {
         return $this->hasMany(RepairEstimateImage::class, 'accident_id', 'id');
-    }    
+    }
+
+    public function accidentContact() {
+        return $this->hasMany(AccidentContact::class,"accident_id","id");
+    }
 }

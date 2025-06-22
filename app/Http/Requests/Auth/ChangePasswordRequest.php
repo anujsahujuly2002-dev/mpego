@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class AccidentInfoRequest extends FormRequest
+class ChangePasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,22 +25,8 @@ class AccidentInfoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "user_type"=>'required|in:driver,passenger',
-            "accident_date"=>'required|date',
-            "accident_time"=>'required|date_format:H:i',
-            'who_was_with_you' => 'required|string|max:255',
-            'description' => 'required|string|max:1000',
-            'contacts'=>'required|array|max:4',
-            'contacts.*.name'=>"required|string",
-            "contacts.*.contact_no"=>["required",'regex:/^\+\d{1,3}-\d{3}-\d{3}-\d{4}$/']
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'contacts.*.contact_no.required' => 'Each contact must have a contact number.',
-            'contacts.*.contact_no.regex' => 'Contact numbers must be in the format +CCC-NNN-NNN-NNNN (e.g., +123-456-789-1234).',
+            "new_password"=>"required",
+            "confirm_password"=>'required|same:new_password'
         ];
     }
 
