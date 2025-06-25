@@ -35,3 +35,6 @@
 ::1 - - [25/Jun/2025:14:20:51 +0530] "POST /api/driver-insurance HTTP/1.1" 500 20394 "-" "PostmanRuntime/7.44.0"
 ::1 - - [25/Jun/2025:14:37:39 +0530] "POST /api/driver-insurance HTTP/1.1" 200 427 "-" "PostmanRuntime/7.44.0"
 ::1 - - [25/Jun/2025:15:32:32 +0530] "POST /api/driver-insurance HTTP/1.1" 200 427 "-" "PostmanRuntime/7.44.0"
+::1 - - [25/Jun/2025:16:05:47 +0530] "POST /api/drivers-registration-cards HTTP/1.1" 500 391 "-" "PostmanRuntime/7.44.0"
+::1 - - [25/Jun/2025:16:29:38 +0530] "POST /api/drivers-registration-cards HTTP/1.1" 500 20395 "-" "PostmanRuntime/7.44.0"
+::1 - - [25/Jun/2025:16:40:43 +0530] "POST /api/drivers-registration-cards HTTP/1.1" 200 435 "-" "PostmanRuntime/7.44.0"

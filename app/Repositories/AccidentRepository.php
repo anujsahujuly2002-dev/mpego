@@ -3,10 +3,11 @@
 
 namespace App\Repositories;
 
-use App\Models\AccidentContact;
 use App\Models\AccidentInfo;
-use App\Models\DriverInsurance;
 use App\Models\OtherDriverId;
+use App\Models\AccidentContact;
+use App\Models\DriverInsurance;
+use App\Models\DriversRegistrationCard;
 
 class AccidentRepository {
     public function create(array $data) {
@@ -62,4 +63,14 @@ class AccidentRepository {
             'image'=>$data['fileName']
         ]);
     }
+
+    public function driverRegistrationCard($data){
+        return DriversRegistrationCard::create([
+            'accident_id'=>$data['accident_id'],
+            'name'=>$data['name'],
+            'registration_no'=>$data['registration_no'],
+            'image'=>$data['fileName']
+        ]);
+    }
+
 }

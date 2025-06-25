@@ -70,6 +70,8 @@ Route::middleware('auth:api')->group(function() {
         Route::get('get-exhange-id-and-insurance','getExchangeIdAndInsurance');
         Route::post("other-driver-id","otherDriverId");
         Route::post('driver-insurance','driverInsurance');
+        Route::post('drivers-registration-cards','driversRegistrationCards');
+
     });
 
 
