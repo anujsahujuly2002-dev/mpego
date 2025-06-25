@@ -46,6 +46,8 @@ Route::controller(HealthInsuranceController::class)->group(function() {
     Route::post('/get-health-insurance','getHealthInsuranceInfo');
     Route::post("medi-cal-store","mediCalStore");
     Route::post("get-medi-cal-info","getMedicalInfo");
+    Route::post("private-card",'privateCard');
+    Route::post("get-private-card","getPrivateCard");
 });
 
 Route::controller(TwoServiceController::class)->group(function() {

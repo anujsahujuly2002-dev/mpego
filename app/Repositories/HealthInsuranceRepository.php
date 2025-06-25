@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\HealthInsurance;
 use App\Models\medical;
+use App\Models\PrivateCard;
 
 class HealthInsuranceRepository {
 
@@ -32,5 +33,16 @@ class HealthInsuranceRepository {
         return medical::where("user_id",$userId)->with(['medicalImages'])->first();
     }
 
+
+    public function privateCard($data) {
+        return PrivateCard::updateOrCreate(
+            ['user_id' => $data['user_id']],
+            $data
+        );
+    }
+
+    public function getPrivateCard($userId) {
+        return PrivateCard::where("user_id",$userId)->with(['privateCardImage'])->first();
+    }
 
 }
