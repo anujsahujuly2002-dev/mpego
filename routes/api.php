@@ -68,6 +68,7 @@ Route::middleware('auth:api')->group(function() {
         Route::get('get-previous-accident','getPreviousAccident');
         Route::post('exchange-id-and-insurance','exchangeIdAndInsurance');
         Route::get('get-exhange-id-and-insurance','getExchangeIdAndInsurance');
+        Route::post("other-driver-id","otherDriverId");
     });
 
 

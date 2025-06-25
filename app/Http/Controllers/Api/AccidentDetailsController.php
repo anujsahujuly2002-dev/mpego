@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\AccidentRepository;
 use App\Http\Requests\AccidentInfoRequest;
+use App\Http\Requests\Api\OtherDriverIdRequest;
 use App\Repositories\Auth\SignUpRepository;
 use App\Repositories\Upload\UploadImageRepository;
+use Exception;
 
 class AccidentDetailsController extends Controller
 {
@@ -127,8 +129,37 @@ class AccidentDetailsController extends Controller
         }
     }
 
-    public function policeReportImage() {
-        
+    public function otherDriverId(OtherDriverIdRequest $request) {
+        try{
+            $fileName = [];
+            if(!empty($request->file('image'))):
+                $userId = auth()->user()->id;
+                $directory = "upload/other-drivers-id/".$userId.'/'.$request->input('accident_id');
+                $file = $request->file('image');
+                $imageUpload = New UploadImageRepository($file,$directory);
+                $fileName = $imageUpload->upload();
+            endif;
+            $data = $request->all();
+            $data['fileName'] = $fileName;
+            $otherDriverId = $this->accidentRepository->otherDriverId($data);
+            if($otherDriverId):
+                return response()->json([
+                    'status' => true,
+                    "message"=>"Other Driver Id Information store successfully",
+                ]);
+            else:
+                return response()->json([
+                    'status' => false,
+                    "message"=>"Other Driver Id Information not store, Please try again",
+                ]);
+            endif;
+        }catch(Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => "An error occurred: " . $e->getMessage(),
+            ], 500);
+        }
+
     }
 
 }

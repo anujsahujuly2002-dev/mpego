@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 use App\Models\AccidentContact;
 use App\Models\AccidentInfo;
+use App\Models\OtherDriverId;
 
 class AccidentRepository {
     public function create(array $data) {
@@ -40,6 +41,15 @@ class AccidentRepository {
             "accident_id"=>$accidentId,
             "name"=>$data['name'],
             'contact_no'=>$data['contact_no']
+        ]);
+    }
+
+    public function otherDriverId($data) {
+        return OtherDriverId::create([
+            'accident_id'=>$data['accident_id'],
+            'name'=>$data['name'],
+            "license_no"=>$data['license_no'],
+            'image'=>$data['fileName'],
         ]);
     }
 }
