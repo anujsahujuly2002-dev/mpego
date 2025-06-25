@@ -69,6 +69,7 @@ Route::middleware('auth:api')->group(function() {
         Route::post('exchange-id-and-insurance','exchangeIdAndInsurance');
         Route::get('get-exhange-id-and-insurance','getExchangeIdAndInsurance');
         Route::post("other-driver-id","otherDriverId");
+        Route::post('driver-insurance','driverInsurance');
     });
 
 
@@ -83,7 +84,6 @@ Route::middleware('auth:api')->group(function() {
     });
 
     Route::controller(UserEmergencyController::class)->group(function() {
-
         Route::post('/get-user-emergency','getUserEmergency');
         Route::get('/help-info','helpInfo');
         Route::get('/account-delete-reasons','getAccountDeleteReasons');
