@@ -14,7 +14,20 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 Route::get('artisan-call',function(){
-    Artisan::call('migrate');
+    $array = [1,4,3,8,7];
+
+for($i = 0; $i<count($array);$i++){
+	for($j=0;$j< (count($array)-$i-1);$j++){
+    	if($array[$j] >$array[$j+1]){
+        	$temp = $array[$j];
+            $array[$j]=$array[$j+1];
+            $array[$j+1] = $temp;
+        }
+    }
+}
+echo  "<pre>";
+print_r($array);
+    // Artisan::call('migrate');
     // Artisan::call('passport:install');
     return 'Migration completed';
 });
