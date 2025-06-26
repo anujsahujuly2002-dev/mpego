@@ -78,7 +78,7 @@ class CarInsuranceInfo extends Controller
             return response()->json([
                 'status'=>true,
                 'message'=>"Car insurance fetched successfully",
-                'data'=>New CarInsuranceInfoResource($carInsuranceInfo)
+                'data'=>CarInsuranceInfoResource::collection($carInsuranceInfo)
             ],200);
         } catch (Exception $e) {
             return response()->json([

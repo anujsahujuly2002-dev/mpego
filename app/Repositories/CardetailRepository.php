@@ -14,9 +14,9 @@ class CardetailRepository {
         );
     }
 
-    public function getCarDetailsByUserId(int $userId): ?CarDetail
+    public function getCarDetailsByUserId(int $userId)
     {
-        return CarDetail::where('user_id', $userId)->with(['carImages'])->first();
+        return CarDetail::where('user_id', $userId)->with(['carImages'])->get();
     }
 
     public function getCarDetailsById(int $id): ?CarDetail

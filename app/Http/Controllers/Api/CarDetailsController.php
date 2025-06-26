@@ -72,7 +72,7 @@ class CarDetailsController extends Controller
                 return response()->json([
                     'status'=>true,
                     'message'=>"Car Details fetched successfully",
-                    'data'=>New CarDetailsResource($carDetails)
+                    'data'=>CarDetailsResource::collection($carDetails)
                 ],200);
             else:
                 return response()->json([

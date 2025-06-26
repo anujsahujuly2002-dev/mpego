@@ -27,5 +27,5 @@ class CarInsuranceInfo extends Model
         'deleted_at',
     ];
 
-    
+
 }
