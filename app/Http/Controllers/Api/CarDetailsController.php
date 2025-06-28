@@ -47,6 +47,7 @@ class CarDetailsController extends Controller
                 return response()->json([
                     'status'=>true,
                     'message'=>"Car Detail store succssfully",
+                    'data'=>New CarDetailsResource($carDetail)
                 ],200);
             else:
                 return response()->json([

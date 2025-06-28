@@ -24,10 +24,6 @@ Route::namespace('Auth')->group(function() {
         Route::controller(AuthController::class)->group(function(){
             Route::post('login','login');
         });
-
-        Route::controller(UserEmergencyController::class)->group(function(){
-            Route::post('/user-emergency','store');
-        });
     });
 });
 
@@ -42,6 +38,9 @@ Route::controller(CarInsuranceInfo::class)->group(function() {
     Route::post("get-car-insurence-info-using-car-id",'getCarInsurenceInfoUsingCarDetailsId');
     Route::post("update-car-insurence-info",'carInsurenceInfoUpdate');
 });
+ Route::controller(UserEmergencyController::class)->group(function(){
+        Route::post('/user-emergency','store');
+    });
 
 Route::controller(HealthInsuranceController::class)->group(function() {
     Route::post('/health-insurance','healthInsuranceInfo');

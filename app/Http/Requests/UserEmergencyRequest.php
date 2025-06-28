@@ -25,7 +25,11 @@ class UserEmergencyRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [];
+        if (!Auth::check()) {
+            $rules['user_id'] = 'required|integer|exists:users,id';
+        }
+        $rules += [
             'emergency_contact_name' => 'required|string|max:255',
             'emergency_contact_phone' => [
                 'required',
@@ -35,6 +39,7 @@ class UserEmergencyRequest extends FormRequest
                 'unique:user_emergencies,emergency_contact_phone'
             ],
         ];
+        return $rules;
     }
 
     /**
