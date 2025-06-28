@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->unsignedBigInteger('car_detail_id');
+            $table->foreign('car_detail_id')->references('id')->on('car_details')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('carrier');
             $table->string('policy_number');
             $table->string('agent_name')->nullable();

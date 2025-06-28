@@ -39,6 +39,8 @@ Route::controller(CarDetailsController::class)->group(function() {
 Route::controller(CarInsuranceInfo::class)->group(function() {
     Route::post('/car-insurance-info','carInsuranceInfo');
     Route::post('/get-car-insurance-info','getCarInsuranceInfo');
+    Route::post("get-car-insurence-info-using-car-id",'getCarInsurenceInfoUsingCarDetailsId');
+    Route::post("update-car-insurence-info",'carInsurenceInfoUpdate');
 });
 
 Route::controller(HealthInsuranceController::class)->group(function() {

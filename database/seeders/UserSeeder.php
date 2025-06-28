@@ -60,7 +60,7 @@ class UserSeeder extends Seeder
         $user = User::create([
             'name' => "Mepego",
             'email' => "mepego@gmail.com",
-            'password' => Hash::make("Mepego@123#"),
+            'password' => "Mepego@123#",
             'phone' => $faker->phoneNumber,
             'date_of_birth' => $faker->date(),
             'address' => $faker->address,

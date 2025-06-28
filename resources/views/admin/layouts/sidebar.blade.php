@@ -1,121 +1,200 @@
  <!-- Menu -->
-            <!-- Sidenav Menu Start -->
-            <div class="sidenav-menu">
-                <!-- Brand Logo -->
-                <a href="{{route('admin.dashboard')}}" class="logo">
-                    <span class="logo-light">
-                        <span class="logo-lg"><img src="{{asset('assets/images/logo.png')}}" alt="logo"></span>
-                        <span class="logo-sm"><img src="{{asset('assets/images/logo-sm.png')}}" alt="small logo"></span>
-                    </span>
+ <!-- Sidenav Menu Start -->
+ <div class="sidenav-menu">
+     <!-- Brand Logo -->
+     <a href="{{ route('admin.dashboard') }}" class="logo">
+         <span class="logo-light">
+             <span class="logo-lg"><img src="{{ asset('assets/images/logo.png') }}" alt="logo"
+                     style="width: 100%; max-width: 250px; height: auto; object-fit: contain;"></span>
+             <span class="logo-sm"><img src="{{ asset('assets/images/logo.jpg') }}" alt="small logo"
+                     style="width: 100%; max-width: 250px; height: auto; object-fit: contain;"></span>
+         </span>
 
-                    <span class="logo-dark">
-                        <span class="logo-lg"><img src="{{asset('assets/images/logo-dark.png')}}" alt="dark logo"></span>
-                        <span class="logo-sm"><img src="{{asset('assets/images/logo-sm.png')}}" alt="small logo"></span>
-                    </span>
-                </a>
+         <span class="logo-dark">
+             <span class="logo-lg"><img src="{{ asset('assets/images/logo.png') }}" alt="dark logo"
+                     style="width: 100%; max-width: 250px; height: auto; object-fit: contain;"></span>
+             <span class="logo-sm"><img src="{{ asset('assets/images/logo.jpg') }}" alt="small logo"
+                     style="width: 100%; max-width: 250px; height: auto; object-fit: contain;"> </span>
+         </span>
+     </a>
 
-                <!-- Sidebar Hover Menu Toggle Button -->
-                <button class="button-sm-hover">
-                    <i class="ri-circle-line align-middle"></i>
-                </button>
+     <!-- Sidebar Hover Menu Toggle Button -->
+     <button class="button-sm-hover">
+         <i class="ri-circle-line align-middle"></i>
+     </button>
 
-                <!-- Full Sidebar Menu Close Button -->
-                <button class="button-close-fullsidebar">
-                    <i class="ti ti-x align-middle"></i>
-                </button>
+     <!-- Full Sidebar Menu Close Button -->
+     <button class="button-close-fullsidebar">
+         <i class="ti ti-x align-middle"></i>
+     </button>
 
-                <div data-simplebar>
+     <div data-simplebar>
 
-                    <!--- Sidenav Menu -->
-                    <ul class="side-nav">
-                        <li class="side-nav-title">
-                            Menu
-                        </li>
+         <!--- Sidenav Menu -->
+         <ul class="side-nav">
+             <li class="side-nav-title">
+                 Menu
+             </li>
 
-                        <li class="side-nav-item">
-                            <a href="{{route('admin.dashboard')}}" class="side-nav-link">
-                                <span class="menu-icon"><i class="ti ti-dashboard"></i></span>
-                                <span class="menu-text"> Dashboard </span>
-                                {{-- <span class="badge bg-danger rounded-pill">9+</span> --}}
-                            </a>
-                        </li>
-                        @canany(['permission-delete', 'permission-edit', 'permission-create','permisson-list','role-delete', 'role-edit', 'role-create','role-list'])
-                            <li class="side-nav-item @if (in_array(request()->route()->getName(),['admin.permissions.index','admin.permissions.create','admin.roles.index','admin.roles.create','admin.roles.edit'])) active @endif">
-                                <a data-bs-toggle="collapse" href="#sidebarInvoice" aria-expanded="false" aria-controls="sidebarInvoice" class="side-nav-link">
-                                    <span class="menu-icon"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-user-cog"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h2.5" /><path d="M19.001 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M19.001 15.5v1.5" /><path d="M19.001 21v1.5" /><path d="M22.032 17.25l-1.299 .75" /><path d="M17.27 20l-1.3 .75" /><path d="M15.97 17.25l1.3 .75" /><path d="M20.733 20l1.3 .75" /></svg></span>
-                                    <span class="menu-text">Role & Permission</span>
-                                    <span class="menu-arrow"></span>
-                                </a>
-                                <div class="collapse  @if (in_array(request()->route()->getName(),['admin.permissions.index','admin.permissions.create','admin.roles.create','admin.roles.edit'])) show @endif" id="sidebarInvoice">
-                                    <ul class="sub-menu">
-                                        @canany(['role-delete', 'role-edit', 'role-create','role-list'])
-                                            <li class="side-nav-item">
-                                                <a href="{{route('admin.roles.index')}}" class="side-nav-link @if(in_array(request()->route()->getName(),['admin.roles.index','admin.roles.create','admin.roles.edit'])) active @endif">
-                                                    <span class="menu-text">Role</span>
-                                                </a>
-                                            </li>
-                                        @endcanany
-                                        @canany(['permission-delete', 'permission-edit', 'permission-create','permission-list'])
-                                            <li class="side-nav-item">
-                                                <a href="{{route('admin.permissions.index')}}" class="side-nav-link @if(in_array(request()->route()->getName(),['admin.permissions.index','admin.permissions.create'])) active @endif">
-                                                    <span class="menu-text">Permission</span>
-                                                </a>
-                                            </li>
-                                        @endcanany
-                                    </ul>
-                                </div>
-                            </li>
-                        @endcanany
-                        @canany(['user-view', 'user-delete', 'user-edit','user-create','user-list'])
-                            <li class="side-nav-item @if(in_array(request()->route()->getName(),['admin.users.index','admin.users.view.details','admin.users.create'])) active @endif">
-                                <a href="{{route('admin.users.index')}}" class="side-nav-link">
-                                    <span class="menu-icon"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-users-group"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1" /><path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M17 10h2a2 2 0 0 1 2 2v1" /><path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M3 13v-1a2 2 0 0 1 2 -2h2" /></svg></span>
-                                    <span class="menu-text">Users </span>
-                                </a>
-                            </li>
-                        @endcanany
-                        @canany(['manage-settings'])
-                            <li class="side-nav-item @if(in_array(request()->route()->getName(),['admin.help.index'])) active @endif">
-                                <a href="{{route('admin.help.index')}}" class="side-nav-link">
-                                    <span class="menu-icon"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-help-square-rounded"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2l.642 .005l.616 .017l.299 .013l.579 .034l.553 .046c4.687 .455 6.65 2.333 7.166 6.906l.03 .29l.046 .553l.041 .727l.006 .15l.017 .617l.005 .642l-.005 .642l-.017 .616l-.013 .299l-.034 .579l-.046 .553c-.455 4.687 -2.333 6.65 -6.906 7.166l-.29 .03l-.553 .046l-.727 .041l-.15 .006l-.617 .017l-.642 .005l-.642 -.005l-.616 -.017l-.299 -.013l-.579 -.034l-.553 -.046c-4.687 -.455 -6.65 -2.333 -7.166 -6.906l-.03 -.29l-.046 -.553l-.041 -.727l-.006 -.15l-.017 -.617l-.004 -.318v-.648l.004 -.318l.017 -.616l.013 -.299l.034 -.579l.046 -.553c.455 -4.687 2.333 -6.65 6.906 -7.166l.29 -.03l.553 -.046l.727 -.041l.15 -.006l.617 -.017c.21 -.003 .424 -.005 .642 -.005zm0 13a1 1 0 0 0 -.993 .883l-.007 .117l.007 .127a1 1 0 0 0 1.986 0l.007 -.117l-.007 -.127a1 1 0 0 0 -.993 -.883zm1.368 -6.673a2.98 2.98 0 0 0 -3.631 .728a1 1 0 0 0 1.44 1.383l.171 -.18a.98 .98 0 0 1 1.11 -.15a1 1 0 0 1 -.34 1.886l-.232 .012a1 1 0 0 0 .111 1.994a3 3 0 0 0 1.371 -5.673z" /></svg></span>
-                                    <span class="menu-text">Me Pego Help</span>
-                                </a>
-                            </li>
-                        @endcanany
-                        @canany(['account-delete-reason-list', 'account-delete-reason-create', 'account-delete-reason-edit','account-delete-reason-delete'])
-                            <li class="side-nav-item @if(in_array(request()->route()->getName(),['admin.account.deletion.index','admin.account.deletion.create','admin.account.deletion.edit'])) active @endif">
-                                <a href="{{route('admin.account.deletion.index')}}" class="side-nav-link">
-                                    <span class="menu-icon"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-help-square-rounded"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2l.642 .005l.616 .017l.299 .013l.579 .034l.553 .046c4.687 .455 6.65 2.333 7.166 6.906l.03 .29l.046 .553l.041 .727l.006 .15l.017 .617l.005 .642l-.005 .642l-.017 .616l-.013 .299l-.034 .579l-.046 .553c-.455 4.687 -2.333 6.65 -6.906 7.166l-.29 .03l-.553 .046l-.727 .041l-.15 .006l-.617 .017l-.642 .005l-.642 -.005l-.616 -.017l-.299 -.013l-.579 -.034l-.553 -.046c-4.687 -.455 -6.65 -2.333 -7.166 -6.906l-.03 -.29l-.046 -.553l-.041 -.727l-.006 -.15l-.017 -.617l-.004 -.318v-.648l.004 -.318l.017 -.616l.013 -.299l.034 -.579l.046 -.553c.455 -4.687 2.333 -6.65 6.906 -7.166l.29 -.03l.553 -.046l.727 -.041l.15 -.006l.617 -.017c.21 -.003 .424 -.005 .642 -.005zm0 13a1 1 0 0 0 -.993 .883l-.007 .117l.007 .127a1 1 0 0 0 1.986 0l.007 -.117l-.007 -.127a1 1 0 0 0 -.993 -.883zm1.368 -6.673a2.98 2.98 0 0 0 -3.631 .728a1 1 0 0 0 1.44 1.383l.171 -.18a.98 .98 0 0 1 1.11 -.15a1 1 0 0 1 -.34 1.886l-.232 .012a1 1 0 0 0 .111 1.994a3 3 0 0 0 1.371 -5.673z" /></svg></span>
-                                    <span class="menu-text">Account Delete Reason</span>
-                                </a>
-                            </li>
-                        @endcanany
-                        @canany(['accident-list'])
-                            <li class="side-nav-item @if(in_array(request()->route()->getName(),['admin.accident.index','admin.accident.image'])) active @endif">
-                                <a href="{{route('admin.accident.index')}}" class="side-nav-link">
-                                    <span class="menu-icon"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-help-square-rounded"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2l.642 .005l.616 .017l.299 .013l.579 .034l.553 .046c4.687 .455 6.65 2.333 7.166 6.906l.03 .29l.046 .553l.041 .727l.006 .15l.017 .617l.005 .642l-.005 .642l-.017 .616l-.013 .299l-.034 .579l-.046 .553c-.455 4.687 -2.333 6.65 -6.906 7.166l-.29 .03l-.553 .046l-.727 .041l-.15 .006l-.617 .017l-.642 .005l-.642 -.005l-.616 -.017l-.299 -.013l-.579 -.034l-.553 -.046c-4.687 -.455 -6.65 -2.333 -7.166 -6.906l-.03 -.29l-.046 -.553l-.041 -.727l-.006 -.15l-.017 -.617l-.004 -.318v-.648l.004 -.318l.017 -.616l.013 -.299l.034 -.579l.046 -.553c.455 -4.687 2.333 -6.65 6.906 -7.166l.29 -.03l.553 -.046l.727 -.041l.15 -.006l.617 -.017c.21 -.003 .424 -.005 .642 -.005zm0 13a1 1 0 0 0 -.993 .883l-.007 .117l.007 .127a1 1 0 0 0 1.986 0l.007 -.117l-.007 -.127a1 1 0 0 0 -.993 -.883zm1.368 -6.673a2.98 2.98 0 0 0 -3.631 .728a1 1 0 0 0 1.44 1.383l.171 -.18a.98 .98 0 0 1 1.11 -.15a1 1 0 0 1 -.34 1.886l-.232 .012a1 1 0 0 0 .111 1.994a3 3 0 0 0 1.371 -5.673z" /></svg></span>
-                                    <span class="menu-text">Accident List</span>
-                                </a>
-                            </li>
-                        @endcanany
-                        @canany(['account-delete-request-list'])
-                            <li class="side-nav-item @if(in_array(request()->route()->getName(),['admin.account.delete.request'])) active @endif">
-                                <a href="{{route('admin.account.delete.request')}}" class="side-nav-link">
-                                    <span class="menu-icon"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-help-square-rounded"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2l.642 .005l.616 .017l.299 .013l.579 .034l.553 .046c4.687 .455 6.65 2.333 7.166 6.906l.03 .29l.046 .553l.041 .727l.006 .15l.017 .617l.005 .642l-.005 .642l-.017 .616l-.013 .299l-.034 .579l-.046 .553c-.455 4.687 -2.333 6.65 -6.906 7.166l-.29 .03l-.553 .046l-.727 .041l-.15 .006l-.617 .017l-.642 .005l-.642 -.005l-.616 -.017l-.299 -.013l-.579 -.034l-.553 -.046c-4.687 -.455 -6.65 -2.333 -7.166 -6.906l-.03 -.29l-.046 -.553l-.041 -.727l-.006 -.15l-.017 -.617l-.004 -.318v-.648l.004 -.318l.017 -.616l.013 -.299l.034 -.579l.046 -.553c.455 -4.687 2.333 -6.65 6.906 -7.166l.29 -.03l.553 -.046l.727 -.041l.15 -.006l.617 -.017c.21 -.003 .424 -.005 .642 -.005zm0 13a1 1 0 0 0 -.993 .883l-.007 .117l.007 .127a1 1 0 0 0 1.986 0l.007 -.117l-.007 -.127a1 1 0 0 0 -.993 -.883zm1.368 -6.673a2.98 2.98 0 0 0 -3.631 .728a1 1 0 0 0 1.44 1.383l.171 -.18a.98 .98 0 0 1 1.11 -.15a1 1 0 0 1 -.34 1.886l-.232 .012a1 1 0 0 0 .111 1.994a3 3 0 0 0 1.371 -5.673z" /></svg></span>
-                                    <span class="menu-text">Account Delete Request Lists</span>
-                                </a>
-                            </li> 
-                        @endcanany
-                        @canany(['delete-account-list',])
-                            <li class="side-nav-item @if(in_array(request()->route()->getName(),['delete.account.list'])) active @endif">
-                                <a href="{{route('admin.delete.account.list')}}" class="side-nav-link">
-                                    <span class="menu-icon"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-help-square-rounded"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2l.642 .005l.616 .017l.299 .013l.579 .034l.553 .046c4.687 .455 6.65 2.333 7.166 6.906l.03 .29l.046 .553l.041 .727l.006 .15l.017 .617l.005 .642l-.005 .642l-.017 .616l-.013 .299l-.034 .579l-.046 .553c-.455 4.687 -2.333 6.65 -6.906 7.166l-.29 .03l-.553 .046l-.727 .041l-.15 .006l-.617 .017l-.642 .005l-.642 -.005l-.616 -.017l-.299 -.013l-.579 -.034l-.553 -.046c-4.687 -.455 -6.65 -2.333 -7.166 -6.906l-.03 -.29l-.046 -.553l-.041 -.727l-.006 -.15l-.017 -.617l-.004 -.318v-.648l.004 -.318l.017 -.616l.013 -.299l.034 -.579l.046 -.553c.455 -4.687 2.333 -6.65 6.906 -7.166l.29 -.03l.553 -.046l.727 -.041l.15 -.006l.617 -.017c.21 -.003 .424 -.005 .642 -.005zm0 13a1 1 0 0 0 -.993 .883l-.007 .117l.007 .127a1 1 0 0 0 1.986 0l.007 -.117l-.007 -.127a1 1 0 0 0 -.993 -.883zm1.368 -6.673a2.98 2.98 0 0 0 -3.631 .728a1 1 0 0 0 1.44 1.383l.171 -.18a.98 .98 0 0 1 1.11 -.15a1 1 0 0 1 -.34 1.886l-.232 .012a1 1 0 0 0 .111 1.994a3 3 0 0 0 1.371 -5.673z" /></svg></span>
-                                    <span class="menu-text">Delete Account List</span>
-                                </a>
-                            </li> 
-                        @endcanany
-                    </ul>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-            <!-- Sidenav Menu End -->
+             <li class="side-nav-item">
+                 <a href="{{ route('admin.dashboard') }}" class="side-nav-link">
+                     <span class="menu-icon"><i class="ti ti-dashboard"></i></span>
+                     <span class="menu-text"> Dashboard </span>
+                     {{-- <span class="badge bg-danger rounded-pill">9+</span> --}}
+                 </a>
+             </li>
+             @canany(['permission-delete', 'permission-edit', 'permission-create', 'permisson-list', 'role-delete',
+                 'role-edit', 'role-create', 'role-list'])
+                 <li class="side-nav-item @if (in_array(request()->route()->getName(), [
+                         'admin.permissions.index',
+                         'admin.permissions.create',
+                         'admin.roles.index',
+                         'admin.roles.create',
+                         'admin.roles.edit',
+                     ])) active @endif">
+                     <a data-bs-toggle="collapse" href="#sidebarInvoice" aria-expanded="false"
+                         aria-controls="sidebarInvoice" class="side-nav-link">
+                         <span class="menu-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round"
+                                 class="icon icon-tabler icons-tabler-outline icon-tabler-user-cog">
+                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                 <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                                 <path d="M6 21v-2a4 4 0 0 1 4 -4h2.5" />
+                                 <path d="M19.001 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                                 <path d="M19.001 15.5v1.5" />
+                                 <path d="M19.001 21v1.5" />
+                                 <path d="M22.032 17.25l-1.299 .75" />
+                                 <path d="M17.27 20l-1.3 .75" />
+                                 <path d="M15.97 17.25l1.3 .75" />
+                                 <path d="M20.733 20l1.3 .75" />
+                             </svg></span>
+                         <span class="menu-text">Role & Permission</span>
+                         <span class="menu-arrow"></span>
+                     </a>
+                     <div class="collapse  @if (in_array(request()->route()->getName(), [
+                             'admin.permissions.index',
+                             'admin.permissions.create',
+                             'admin.roles.create',
+                             'admin.roles.edit',
+                         ])) show @endif" id="sidebarInvoice">
+                         <ul class="sub-menu">
+                             @canany(['role-delete', 'role-edit', 'role-create', 'role-list'])
+                                 <li class="side-nav-item">
+                                     <a href="{{ route('admin.roles.index') }}"
+                                         class="side-nav-link @if (in_array(request()->route()->getName(), ['admin.roles.index', 'admin.roles.create', 'admin.roles.edit'])) active @endif">
+                                         <span class="menu-text">Role</span>
+                                     </a>
+                                 </li>
+                             @endcanany
+                             @canany(['permission-delete', 'permission-edit', 'permission-create', 'permission-list'])
+                                 <li class="side-nav-item">
+                                     <a href="{{ route('admin.permissions.index') }}"
+                                         class="side-nav-link @if (in_array(request()->route()->getName(), ['admin.permissions.index', 'admin.permissions.create'])) active @endif">
+                                         <span class="menu-text">Permission</span>
+                                     </a>
+                                 </li>
+                             @endcanany
+                         </ul>
+                     </div>
+                 </li>
+             @endcanany
+             @canany(['user-view', 'user-delete', 'user-edit', 'user-create', 'user-list'])
+                 <li class="side-nav-item @if (in_array(request()->route()->getName(), ['admin.users.index', 'admin.users.view.details', 'admin.users.create'])) active @endif">
+                     <a href="{{ route('admin.users.index') }}" class="side-nav-link">
+                         <span class="menu-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round"
+                                 class="icon icon-tabler icons-tabler-outline icon-tabler-users-group">
+                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                 <path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                 <path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1" />
+                                 <path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                 <path d="M17 10h2a2 2 0 0 1 2 2v1" />
+                                 <path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                 <path d="M3 13v-1a2 2 0 0 1 2 -2h2" />
+                             </svg></span>
+                         <span class="menu-text">Users </span>
+                     </a>
+                 </li>
+             @endcanany
+             @canany(['manage-settings'])
+                 <li class="side-nav-item @if (in_array(request()->route()->getName(), ['admin.help.index'])) active @endif">
+                     <a href="{{ route('admin.help.index') }}" class="side-nav-link">
+                         <span class="menu-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                 viewBox="0 0 24 24" fill="currentColor"
+                                 class="icon icon-tabler icons-tabler-filled icon-tabler-help-square-rounded">
+                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                 <path
+                                     d="M12 2l.642 .005l.616 .017l.299 .013l.579 .034l.553 .046c4.687 .455 6.65 2.333 7.166 6.906l.03 .29l.046 .553l.041 .727l.006 .15l.017 .617l.005 .642l-.005 .642l-.017 .616l-.013 .299l-.034 .579l-.046 .553c-.455 4.687 -2.333 6.65 -6.906 7.166l-.29 .03l-.553 .046l-.727 .041l-.15 .006l-.617 .017l-.642 .005l-.642 -.005l-.616 -.017l-.299 -.013l-.579 -.034l-.553 -.046c-4.687 -.455 -6.65 -2.333 -7.166 -6.906l-.03 -.29l-.046 -.553l-.041 -.727l-.006 -.15l-.017 -.617l-.004 -.318v-.648l.004 -.318l.017 -.616l.013 -.299l.034 -.579l.046 -.553c.455 -4.687 2.333 -6.65 6.906 -7.166l.29 -.03l.553 -.046l.727 -.041l.15 -.006l.617 -.017c.21 -.003 .424 -.005 .642 -.005zm0 13a1 1 0 0 0 -.993 .883l-.007 .117l.007 .127a1 1 0 0 0 1.986 0l.007 -.117l-.007 -.127a1 1 0 0 0 -.993 -.883zm1.368 -6.673a2.98 2.98 0 0 0 -3.631 .728a1 1 0 0 0 1.44 1.383l.171 -.18a.98 .98 0 0 1 1.11 -.15a1 1 0 0 1 -.34 1.886l-.232 .012a1 1 0 0 0 .111 1.994a3 3 0 0 0 1.371 -5.673z" />
+                             </svg></span>
+                         <span class="menu-text">Me Pego Help</span>
+                     </a>
+                 </li>
+             @endcanany
+             @canany(['account-delete-reason-list', 'account-delete-reason-create', 'account-delete-reason-edit',
+                 'account-delete-reason-delete'])
+                 <li class="side-nav-item @if (in_array(request()->route()->getName(), [
+                         'admin.account.deletion.index',
+                         'admin.account.deletion.create',
+                         'admin.account.deletion.edit',
+                     ])) active @endif">
+                     <a href="{{ route('admin.account.deletion.index') }}" class="side-nav-link">
+                         <span class="menu-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                 viewBox="0 0 24 24" fill="currentColor"
+                                 class="icon icon-tabler icons-tabler-filled icon-tabler-help-square-rounded">
+                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                 <path
+                                     d="M12 2l.642 .005l.616 .017l.299 .013l.579 .034l.553 .046c4.687 .455 6.65 2.333 7.166 6.906l.03 .29l.046 .553l.041 .727l.006 .15l.017 .617l.005 .642l-.005 .642l-.017 .616l-.013 .299l-.034 .579l-.046 .553c-.455 4.687 -2.333 6.65 -6.906 7.166l-.29 .03l-.553 .046l-.727 .041l-.15 .006l-.617 .017l-.642 .005l-.642 -.005l-.616 -.017l-.299 -.013l-.579 -.034l-.553 -.046c-4.687 -.455 -6.65 -2.333 -7.166 -6.906l-.03 -.29l-.046 -.553l-.041 -.727l-.006 -.15l-.017 -.617l-.004 -.318v-.648l.004 -.318l.017 -.616l.013 -.299l.034 -.579l.046 -.553c.455 -4.687 2.333 -6.65 6.906 -7.166l.29 -.03l.553 -.046l.727 -.041l.15 -.006l.617 -.017c.21 -.003 .424 -.005 .642 -.005zm0 13a1 1 0 0 0 -.993 .883l-.007 .117l.007 .127a1 1 0 0 0 1.986 0l.007 -.117l-.007 -.127a1 1 0 0 0 -.993 -.883zm1.368 -6.673a2.98 2.98 0 0 0 -3.631 .728a1 1 0 0 0 1.44 1.383l.171 -.18a.98 .98 0 0 1 1.11 -.15a1 1 0 0 1 -.34 1.886l-.232 .012a1 1 0 0 0 .111 1.994a3 3 0 0 0 1.371 -5.673z" />
+                             </svg></span>
+                         <span class="menu-text">Account Delete Reason</span>
+                     </a>
+                 </li>
+             @endcanany
+             @canany(['accident-list'])
+                 <li class="side-nav-item @if (in_array(request()->route()->getName(), ['admin.accident.index', 'admin.accident.image'])) active @endif">
+                     <a href="{{ route('admin.accident.index') }}" class="side-nav-link">
+                         <span class="menu-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                 viewBox="0 0 24 24" fill="currentColor"
+                                 class="icon icon-tabler icons-tabler-filled icon-tabler-help-square-rounded">
+                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                 <path
+                                     d="M12 2l.642 .005l.616 .017l.299 .013l.579 .034l.553 .046c4.687 .455 6.65 2.333 7.166 6.906l.03 .29l.046 .553l.041 .727l.006 .15l.017 .617l.005 .642l-.005 .642l-.017 .616l-.013 .299l-.034 .579l-.046 .553c-.455 4.687 -2.333 6.65 -6.906 7.166l-.29 .03l-.553 .046l-.727 .041l-.15 .006l-.617 .017l-.642 .005l-.642 -.005l-.616 -.017l-.299 -.013l-.579 -.034l-.553 -.046c-4.687 -.455 -6.65 -2.333 -7.166 -6.906l-.03 -.29l-.046 -.553l-.041 -.727l-.006 -.15l-.017 -.617l-.004 -.318v-.648l.004 -.318l.017 -.616l.013 -.299l.034 -.579l.046 -.553c.455 -4.687 2.333 -6.65 6.906 -7.166l.29 -.03l.553 -.046l.727 -.041l.15 -.006l.617 -.017c.21 -.003 .424 -.005 .642 -.005zm0 13a1 1 0 0 0 -.993 .883l-.007 .117l.007 .127a1 1 0 0 0 1.986 0l.007 -.117l-.007 -.127a1 1 0 0 0 -.993 -.883zm1.368 -6.673a2.98 2.98 0 0 0 -3.631 .728a1 1 0 0 0 1.44 1.383l.171 -.18a.98 .98 0 0 1 1.11 -.15a1 1 0 0 1 -.34 1.886l-.232 .012a1 1 0 0 0 .111 1.994a3 3 0 0 0 1.371 -5.673z" />
+                             </svg></span>
+                         <span class="menu-text">Accident List</span>
+                     </a>
+                 </li>
+             @endcanany
+             @canany(['account-delete-request-list'])
+                 <li class="side-nav-item @if (in_array(request()->route()->getName(), ['admin.account.delete.request'])) active @endif">
+                     <a href="{{ route('admin.account.delete.request') }}" class="side-nav-link">
+                         <span class="menu-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                 viewBox="0 0 24 24" fill="currentColor"
+                                 class="icon icon-tabler icons-tabler-filled icon-tabler-help-square-rounded">
+                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                 <path
+                                     d="M12 2l.642 .005l.616 .017l.299 .013l.579 .034l.553 .046c4.687 .455 6.65 2.333 7.166 6.906l.03 .29l.046 .553l.041 .727l.006 .15l.017 .617l.005 .642l-.005 .642l-.017 .616l-.013 .299l-.034 .579l-.046 .553c-.455 4.687 -2.333 6.65 -6.906 7.166l-.29 .03l-.553 .046l-.727 .041l-.15 .006l-.617 .017l-.642 .005l-.642 -.005l-.616 -.017l-.299 -.013l-.579 -.034l-.553 -.046c-4.687 -.455 -6.65 -2.333 -7.166 -6.906l-.03 -.29l-.046 -.553l-.041 -.727l-.006 -.15l-.017 -.617l-.004 -.318v-.648l.004 -.318l.017 -.616l.013 -.299l.034 -.579l.046 -.553c.455 -4.687 2.333 -6.65 6.906 -7.166l.29 -.03l.553 -.046l.727 -.041l.15 -.006l.617 -.017c.21 -.003 .424 -.005 .642 -.005zm0 13a1 1 0 0 0 -.993 .883l-.007 .117l.007 .127a1 1 0 0 0 1.986 0l.007 -.117l-.007 -.127a1 1 0 0 0 -.993 -.883zm1.368 -6.673a2.98 2.98 0 0 0 -3.631 .728a1 1 0 0 0 1.44 1.383l.171 -.18a.98 .98 0 0 1 1.11 -.15a1 1 0 0 1 -.34 1.886l-.232 .012a1 1 0 0 0 .111 1.994a3 3 0 0 0 1.371 -5.673z" />
+                             </svg></span>
+                         <span class="menu-text">Account Delete Request Lists</span>
+                     </a>
+                 </li>
+             @endcanany
+             @canany(['delete-account-list'])
+                 <li class="side-nav-item @if (in_array(request()->route()->getName(), ['delete.account.list'])) active @endif">
+                     <a href="{{ route('admin.delete.account.list') }}" class="side-nav-link">
+                         <span class="menu-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                 viewBox="0 0 24 24" fill="currentColor"
+                                 class="icon icon-tabler icons-tabler-filled icon-tabler-help-square-rounded">
+                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                 <path
+                                     d="M12 2l.642 .005l.616 .017l.299 .013l.579 .034l.553 .046c4.687 .455 6.65 2.333 7.166 6.906l.03 .29l.046 .553l.041 .727l.006 .15l.017 .617l.005 .642l-.005 .642l-.017 .616l-.013 .299l-.034 .579l-.046 .553c-.455 4.687 -2.333 6.65 -6.906 7.166l-.29 .03l-.553 .046l-.727 .041l-.15 .006l-.617 .017l-.642 .005l-.642 -.005l-.616 -.017l-.299 -.013l-.579 -.034l-.553 -.046c-4.687 -.455 -6.65 -2.333 -7.166 -6.906l-.03 -.29l-.046 -.553l-.041 -.727l-.006 -.15l-.017 -.617l-.004 -.318v-.648l.004 -.318l.017 -.616l.013 -.299l.034 -.579l.046 -.553c.455 -4.687 2.333 -6.65 6.906 -7.166l.29 -.03l.553 -.046l.727 -.041l.15 -.006l.617 -.017c.21 -.003 .424 -.005 .642 -.005zm0 13a1 1 0 0 0 -.993 .883l-.007 .117l.007 .127a1 1 0 0 0 1.986 0l.007 -.117l-.007 -.127a1 1 0 0 0 -.993 -.883zm1.368 -6.673a2.98 2.98 0 0 0 -3.631 .728a1 1 0 0 0 1.44 1.383l.171 -.18a.98 .98 0 0 1 1.11 -.15a1 1 0 0 1 -.34 1.886l-.232 .012a1 1 0 0 0 .111 1.994a3 3 0 0 0 1.371 -5.673z" />
+                             </svg></span>
+                         <span class="menu-text">Delete Account List</span>
+                     </a>
+                 </li>
+             @endcanany
+         </ul>
+         <div class="clearfix"></div>
+     </div>
+ </div>
+ <!-- Sidenav Menu End -->

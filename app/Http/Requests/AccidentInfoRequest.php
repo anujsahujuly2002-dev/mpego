@@ -30,9 +30,9 @@ class AccidentInfoRequest extends FormRequest
             "accident_time"=>'required|date_format:H:i',
             'who_was_with_you' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
-            'contacts'=>'required|array|max:4',
-            'contacts.*.name'=>"required|string",
-            "contacts.*.contact_no"=>["required",'regex:/^\+\d{1,3}-\d{3}-\d{3}-\d{4}$/']
+            // 'contacts'=>'required|array|max:4',
+            // 'contacts.*.name'=>"required|string",
+            // "contacts.*.contact_no"=>["required",'regex:/^\+\d{1,3}-\d{3}-\d{3}-\d{4}$/']
         ];
     }
 

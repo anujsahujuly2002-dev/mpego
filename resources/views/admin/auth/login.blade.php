@@ -21,21 +21,6 @@
 
     <!-- Icons css -->
     <link href="{{asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
-    <style>
-        .logo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
-    margin-bottom: 20px;
-}
-
-.logo-img {
-    max-width: 300px;
-    height: auto;
-    display: block;
-}
-    </style>
 </head>
 
 <body>
@@ -43,9 +28,9 @@
     <div class="auth-bg d-flex min-vh-100">
         <div class="row g-0 justify-content-center w-100 m-xxl-5 px-xxl-4 m-3">
             <div class="col-xxl-3 col-lg-5 col-md-6">
-                <a href="{{route('admin.login')}}" class="auth-brand d-flex justify-content-center mb-2 logo-container">
-                    <img src="{{asset('assets/images/logo-dark.png')}}" alt="dark logo" height="26" class="logo-dark">
-                    <img src="{{asset('assets/images/logo-dark.png')}}" alt="logo light" class="logo-img">
+                <a href="{{route('admin.login')}}" class="auth-brand d-flex justify-content-center mb-2">
+                    <img src="{{asset('assets/images/logo.jpg')}}" alt="dark logo" class="logo-dark" style="width: 100%; max-width: 250px; height: auto; object-fit: contain;">
+                    <img src="{{asset('assets/images/logo.png')}}" alt="logo light" class="logo-img" style="width: 100%; max-width: 250px; height: auto; object-fit: contain;">
                 </a>
 
                 {{-- <p class="fw-semibold mb-4 text-center text-muted fs-15">Admin Panel</p> --}}

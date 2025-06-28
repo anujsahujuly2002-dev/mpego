@@ -13,7 +13,8 @@ class CarInsuranceInfo extends Model
         'user_id',
         'carrier',
         'policy_number',
-        'agent_name'
+        'agent_name',
+        'car_detail_id'
     ];
 
     public function carInsuranceInfoImages()

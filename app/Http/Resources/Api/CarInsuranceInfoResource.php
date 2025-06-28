@@ -16,6 +16,7 @@ class CarInsuranceInfoResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'car_detail_id'=>$this->car_detail_id,
             'user_id' => $this->user_id,
             'carrier' => $this->carrier,
             'policy_number' => $this->policy_number,
