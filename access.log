@@ -717,3 +717,8 @@
 ::1 - - [29/Jun/2025:12:18:43 +0530] "POST /api/add-car-detail-and-car-insurence HTTP/1.1" 200 438 "-" "PostmanRuntime/7.44.0"
 ::1 - - [29/Jun/2025:12:20:49 +0530] "POST /api/add-car-detail-and-car-insurence HTTP/1.1" 422 472 "-" "PostmanRuntime/7.44.0"
 ::1 - - [29/Jun/2025:12:20:57 +0530] "POST /api/add-car-detail-and-car-insurence HTTP/1.1" 200 438 "-" "PostmanRuntime/7.44.0"
+::1 - - [29/Jun/2025:13:17:34 +0530] "POST /api/get-car-details HTTP/1.1" 200 616 "-" "PostmanRuntime/7.44.0"
+::1 - - [29/Jun/2025:13:18:09 +0530] "POST /api/get-car-details HTTP/1.1" 200 640 "-" "PostmanRuntime/7.44.0"
+::1 - - [29/Jun/2025:13:19:43 +0530] "POST /api/get-car-details HTTP/1.1" 200 640 "-" "PostmanRuntime/7.44.0"
+::1 - - [29/Jun/2025:13:20:06 +0530] "POST /api/get-car-details HTTP/1.1" 200 759 "-" "PostmanRuntime/7.44.0"
+::1 - - [29/Jun/2025:13:21:44 +0530] "POST /api/car-insurance-info HTTP/1.1" 200 708 "-" "PostmanRuntime/7.44.0"

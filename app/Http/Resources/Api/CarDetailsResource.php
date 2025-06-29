@@ -25,6 +25,7 @@ class CarDetailsResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'car_images' => $this->carImages->pluck('images'), // Only images
+            'carInsurenceInfo'=>$this->carInsurenceInfo
         ];
     }
 }

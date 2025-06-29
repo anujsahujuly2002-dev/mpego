@@ -43,6 +43,7 @@ class CarInsuranceInfo extends Controller
                 return response()->json([
                     'status'=>true,
                     'message'=>"Car insurance info store succssfully",
+                    'data'=>New CarInsuranceInfoResource($carInsuranceInfo)
                 ],200);
             else:
                 return response()->json([

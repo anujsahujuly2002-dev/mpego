@@ -39,4 +39,8 @@ class CarDetail extends Model
         return $this->carImages->pluck('images');
     }
 
+    public function carInsurenceInfo() {
+        return $this->hasOne(CarInsuranceInfo::class,'car_detail_id','id');
+    }
+
 }
