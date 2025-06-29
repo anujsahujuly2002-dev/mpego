@@ -73,4 +73,11 @@ class AccidentRepository {
         ]);
     }
 
+    public function carDetailAndCarInsurence($data) {
+        return AccidentInfo::where('id',$data->accident_info_id)->update([
+            'car_detail_id'=>$data->car_detail_id,
+            'car_insurence_info_id'=>$data->car_insurence_info_id
+        ]);
+    }
+
 }

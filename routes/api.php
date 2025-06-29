@@ -72,6 +72,7 @@ Route::middleware('auth:api')->group(function() {
         Route::post("other-driver-id","otherDriverId");
         Route::post('driver-insurance','driverInsurance');
         Route::post('drivers-registration-cards','driversRegistrationCards');
+        Route::post("add-car-detail-and-car-insurence","carDetailAndCarInsurence");
 
     });
 
