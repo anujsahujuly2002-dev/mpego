@@ -23,6 +23,10 @@ class TwoServiceImage extends Model
 
     public function getImageAttribute($value)
     {
-        return env('IMAGE_URL') . '/storage/upload/two-service-image/' . $this->attributes['two_services_id'] . '/' . $value;
+        return env('IMAGE_URL') . '/storage/upload/two-service-image/' . $this->twoService->user_id . '/' . $value;
+    }
+
+    public function twoService() {
+        return $this->belongsTo(TwoService::class, 'two_services_id','id');
     }
 }

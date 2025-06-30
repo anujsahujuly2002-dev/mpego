@@ -37,7 +37,7 @@ class UserStoreRequest extends FormRequest
             'city'             => 'required|string|max:100',
             'state'            => 'required|string|max:100',
             'zip_code'         => 'required|string|max:20',
-            'country'          => 'required|string|max:100',
+            // 'country'          => 'required|string|max:100',
             'image'            => 'array'
         ];
     }

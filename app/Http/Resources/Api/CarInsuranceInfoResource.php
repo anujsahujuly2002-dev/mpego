@@ -20,6 +20,7 @@ class CarInsuranceInfoResource extends JsonResource
             'user_id' => $this->user_id,
             'carrier' => $this->carrier,
             'policy_number' => $this->policy_number,
+            'agent_name'=>$this->agent_name,
             'car_insurance_info_images' => $this->carInsuranceInfoImages->pluck('image'), // Only images
         ];
     }

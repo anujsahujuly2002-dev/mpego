@@ -12,6 +12,7 @@ use App\Notifications\OTPNotification;
 class SignUpRepository {
     protected $user;
     public  function signUp ($data) {
+        $data['country'] = "USA";
         $this->user = User::create($data);
         if($this->user):
             $this->sendOtpViaEmail($this->user);

@@ -16,6 +16,10 @@ class HealthInsuranceImage extends Model
 
     public function getImageAttribute($value)
     {
-        return env('IMAGE_URL'). '/storage/upload/health-insurance-image/'.$this->attributes['health_insurance_id'] .'/'. $value;
+        return env('IMAGE_URL'). '/storage/upload/health-insurance-image/'.$this->healthInsurance->user_id .'/'. $value;
+    }
+
+    public function healthInsurance() {
+        return $this->belongsTo(HealthInsurance::class, 'health_insurance_id','id');
     }
 }
