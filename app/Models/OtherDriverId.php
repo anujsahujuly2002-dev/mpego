@@ -14,4 +14,13 @@ class OtherDriverId extends Model
         'license_no',
         'image'
     ];
+
+    public function getImageAttribute($value) {
+        return env('IMAGE_URL'). '/storage/upload/other-drivers-id/'.$this->accidentInfo->user_id.'/'.$this->accidentInfo->id .'/'. $value;
+    }
+
+
+    public function accidentInfo() {
+        return $this->belongsTo(AccidentInfo::class,'accident_id','id');
+    }
 }

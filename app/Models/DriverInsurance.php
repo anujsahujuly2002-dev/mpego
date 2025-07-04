@@ -15,4 +15,12 @@ class DriverInsurance extends Model
         "member_id",
         "image"
     ];
+
+    public function getImageAttribute($value) {
+        return env('IMAGE_URL'). '/storage/upload/driver-insurance-image/'.$this->accidentInfo->user_id.'/'.$this->accidentInfo->id .'/'. $value;
+    }
+
+    public function accidentInfo() {
+        return $this->belongsTo(AccidentInfo::class,'accident_id','id');
+    }
 }

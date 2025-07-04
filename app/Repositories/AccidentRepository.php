@@ -30,7 +30,7 @@ class AccidentRepository {
     }
 
     public function getPreviousAccidentByUserId($userId) {
-        return AccidentInfo::where('user_id', $userId)->get();
+        return AccidentInfo::where('user_id', $userId)->latest()->with(['users','accidentSeceneImages','vehicalDahicalImages','carSeatsImages','InjuryImages','repairEstimateImages','accidentContact','policeReportImage','otherDriverId','otherDriverInsurances','carDetails','carInsurenceInfo'])->get();
     }
 
     public function all() {

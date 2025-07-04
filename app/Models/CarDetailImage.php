@@ -22,7 +22,11 @@ class CarDetailImage extends Model
     ];
     public function getImagesAttribute($value)
     {
-        return env('IMAGE_URL'). '/storage/upload/car-details/'.$this->attributes['car_detail_id'] .'/'. $value;
+        return env('IMAGE_URL'). '/storage/upload/car-details/'.$this->carDetail->user_id .'/'. $value;
+    }
+
+    public function carDetail() {
+        return $this->belongsTo(CarDetail::class,'car_detail_id','id');
     }
 
 }

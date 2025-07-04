@@ -63,4 +63,25 @@ class AccidentInfo extends Model
     public function accidentContact() {
         return $this->hasMany(AccidentContact::class,"accident_id","id");
     }
+
+    public function policeReportImage() {
+        return $this->hasMany(PoliceReportImage::class,'accident_id','id');
+    }
+
+    public function otherDriverId() {
+        return $this->hasOne(OtherDriverId::class,'accident_id','id');;
+    }
+
+    public function otherDriverInsurances(){
+        return $this->hasOne(DriverInsurance::class,'accident_id','id');
+    }
+
+    public function carDetails() {
+        return $this->belongsTo(CarDetail::class,'car_detail_id','id');
+    }
+
+    public function carInsurenceInfo() {
+        return $this->belongsTo(CarInsuranceInfo::class,'car_insurence_info_id','id');
+    }
+
 }
