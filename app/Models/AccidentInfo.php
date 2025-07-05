@@ -84,4 +84,8 @@ class AccidentInfo extends Model
         return $this->belongsTo(CarInsuranceInfo::class,'car_insurence_info_id','id');
     }
 
+    public function otherDriverRegistrationCard() {
+        return $this->hasOne(DriversRegistrationCard::class,'accident_id','id');
+    }
+
 }

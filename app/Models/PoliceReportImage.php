@@ -12,4 +12,10 @@ class PoliceReportImage extends Model
     protected $fillable = [
         "user_id","accident_id","image"
     ];
+
+
+    public function getImageAttribute($value) {
+
+        return  env('IMAGE_URL'). '/storage/upload/police-report-image/'.$this->attributes['user_id'].'/'.$this->attributes['accident_id'].'/'.$value;
+    }
 }
