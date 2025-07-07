@@ -7,7 +7,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class AccidentInfoRequest extends FormRequest
+class UpdateAccidentInfoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,6 +25,7 @@ class AccidentInfoRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'accident_id'=>'required|exists:accident_infos,id',
             "user_type"=>'required|in:driver,passenger',
             "accident_date"=>'required|date',
             "accident_time"=>'required|date_format:H:i',
@@ -62,5 +63,4 @@ class AccidentInfoRequest extends FormRequest
             ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY
         ));
     }
-
 }

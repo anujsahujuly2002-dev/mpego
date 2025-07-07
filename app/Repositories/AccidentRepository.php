@@ -15,6 +15,7 @@ class AccidentRepository {
     }
 
     public function update($id, array $data) {
+        // Valida
         $accident = AccidentInfo::findOrFail($id);
         $accident->update($data);
         return $accident;

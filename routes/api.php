@@ -73,18 +73,26 @@ Route::middleware('auth:api')->group(function() {
         Route::post('driver-insurance','driverInsurance');
         Route::post('drivers-registration-cards','driversRegistrationCards');
         Route::post("add-car-detail-and-car-insurence","carDetailAndCarInsurence");
+        Route::post("update-accident-info","updateAccidentInfo");
 
     });
 
 
     Route::controller(AccidentImageController::class)->group(function() {
         Route::post('/accident-scene-image','accidentSceneImage');
+        Route::post("/delete-accident-scene-image","deleteAccidentSceneImage");
         Route::post('/get-accident-image','getAccidentImage');
         Route::post('/vehicle-damage-image','vehicleDamageImage');
         Route::post('repair-estimate-image','repairEstimateImage');
         Route::post('/car-seats-image','carSeatsImage');
         Route::post('/injury-image','injuryImage');
         Route::post("police-report-image","policeReportImage");
+        Route::post("delete-vehicle-damage-image","deleteVehicleDamageImage");
+        Route::post("delete-repair-estimate-image","deleteRepairEstimateImage");
+        Route::post("delete-car-seats-image","deleteCarSeatsImage");
+        Route::post("delete-injury-image","deleteInjuryImage");
+        Route::post("   ","deletePoliceReportImage");
+
     });
 
     Route::controller(UserEmergencyController::class)->group(function() {

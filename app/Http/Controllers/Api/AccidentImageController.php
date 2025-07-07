@@ -136,5 +136,131 @@ class AccidentImageController extends Controller
         ], 200);
     }
 
+    public function deleteAccidentSceneImage(Request $request) {
+        if($request->missing('id')) {
+            return response()->json([
+                'status' => false,
+                'message' => "Image ID is required",
+            ], 422);
+        }
+        $image = AccidentSceneImage::find($request->input('id'));
+        if ($image) {
+            $image->delete();
+            return response()->json([
+                'status' => true,
+                'message' => "Accident scene image deleted successfully",
+            ], 200);
+        }
+        return response()->json([
+            'status' => false,
+            'message' => "Image not found",
+        ], 404);
+    }
+
+    public function deleteVehicleDamageImage(Request $request) {
+        if($request->missing('id')) {
+            return response()->json([
+                'status' => false,
+                'message' => "Image ID is required",
+            ], 422);
+        }
+        $image = VehicleDamageImage::find($request->input('id'));
+        if ($image) {
+            $image->delete();
+            return response()->json([
+                'status' => true,
+                'message' => "Vehicle damage image deleted successfully",
+            ], 200);
+        }
+        return response()->json([
+            'status' => false,
+            'message' => "Image not found",
+        ], 404);
+    }
+
+    public function deleteRepairEstimateImage(Request $request) {
+        if($request->missing('id')) {
+            return response()->json([
+                'status' => false,
+                'message' => "Image ID is required",
+            ], 422);
+        }
+        $image = RepairEstimateImage::find($request->input('id'));
+        if ($image) {
+            $image->delete();
+            return response()->json([
+                'status' => true,
+                'message' => "Repair estimate image deleted successfully",
+            ], 200);
+        }
+        return response()->json([
+            'status' => false,
+            'message' => "Image not found",
+        ], 404);
+    }
+
+    public function deleteCarSeatsImage(Request $request) {
+        if($request->missing('id')) {
+            return response()->json([
+                'status' => false,
+                'message' => "Image ID is required",
+            ], 422);
+        }
+        $image = CarSeatsImage::find($request->input('id'));
+        if ($image) {
+            $image->delete();
+            return response()->json([
+                'status' => true,
+                'message' => "Car seats image deleted successfully",
+            ], 200);
+        }
+        return response()->json([
+            'status' => false,
+            'message' => "Image not found",
+        ], 404);
+    }
+
+    public function deleteInjuryImage(Request $request) {
+        if($request->missing('id')) {
+            return response()->json([
+                'status' => false,
+                'message' => "Image ID is required",
+            ], 422);
+        }
+        $image = InjuryImage::find($request->input('id'));
+        if ($image) {
+            $image->delete();
+            return response()->json([
+                'status' => true,
+                'message' => "Injury image deleted successfully",
+            ], 200);
+        }
+        return response()->json([
+            'status' => false,
+            'message' => "Image not found",
+        ], 404);
+    }
+
+    public function deletePoliceReportImage(Request $request) {
+        if($request->missing('id')) {
+            return response()->json([
+                'status' => false,
+                'message' => "Image ID is required",
+            ], 422);
+        }
+        $image = PoliceReportImage::find($request->input('id'));
+        if ($image) {
+            $image->delete();
+            return response()->json([
+                'status' => true,
+                'message' => "Police report image deleted successfully",
+            ], 200);
+        }
+        return response()->json([
+            'status' => false,
+            'message' => "Image not found",
+        ], 404);
+    }
+
 
 }

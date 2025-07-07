@@ -10,10 +10,10 @@ use App\Http\Requests\Api\CarDetailAndCarInsurenceRequest;
 use App\Http\Requests\Api\DriverInsuranceRequest;
 use App\Http\Requests\Api\DriversRegistrationCard;
 use App\Http\Requests\Api\OtherDriverIdRequest;
+use App\Http\Requests\UpdateAccidentInfoRequest;
 use App\Repositories\Auth\SignUpRepository;
 use App\Repositories\Upload\UploadImageRepository;
 use Exception;
-use PhpParser\Node\Stmt\TryCatch;
 
 class AccidentDetailsController extends Controller
 {
@@ -255,6 +255,26 @@ class AccidentDetailsController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => "An error occurred: " . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function updateAccidentInfo(UpdateAccidentInfoRequest $request)
+    {
+        try {
+            $data = $request->all();
+            $accidentId = $data['accident_id'];
+            unset($data['accident_id']);
+            $updatedAccident = $this->accidentRepository->update($accidentId, $data);
+            return response()->json([
+                'status' => true,
+                'message' => 'Accident information updated successfully',
+                'data' => $updatedAccident
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Failed to update accident information',
             ], 500);
         }
     }
