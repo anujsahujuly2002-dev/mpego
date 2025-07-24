@@ -28,7 +28,7 @@ class AccidentDetailsController extends Controller
                 ->addColumn('action', function ($row) {
                     $btn = '';
                     $btn .= '<a href="'.route('admin.accident.image',base64_encode($row->id)).'" class="btn btn-soft-primary btn-icon btn-sm rounded-circle" title="View Image"> <i class="ti ti-eye"></i></a>';
-                
+
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -40,6 +40,71 @@ class AccidentDetailsController extends Controller
     public function accidentImage($id) {
         $accident = $this->accidentRepository->findById(base64_decode($id));
         return view('admin.accident-details.image', compact('accident'));
-    }   
+    }
+
+
+    public function downloadAllAccidentImages($id) {
+        $accident = $this->accidentRepository->findById(base64_decode($id));
+        if(!$accident) {
+            return redirect()->back()->with('error', 'Accident not found');
+        }
+
+        $images = $accident->accidentSeceneImages; // Assuming images is a collection of image paths
+        if($images->isEmpty()) {
+            return redirect()->back()->with('error', 'No images found for this accident');
+        }
+        $zipFileName = 'accident_images_' . time() . '.zip';
+        $zip = new \ZipArchive();
+        if ($zip->open(public_path($zipFileName), \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === TRUE) {
+            foreach ($images as $image) {
+                $url = $image->images;
+                $storagePath = str_replace(
+                    asset('storage'),
+                    storage_path('app/public'),
+                    $url
+                );
+                if (file_exists($storagePath)) {
+                    $zip->addFile($storagePath, basename($storagePath));
+                }
+            }
+            $zip->close();
+        } else {
+            return redirect()->back()->with('error', 'Failed to create zip file');
+        }
+
+        return response()->download(public_path($zipFileName))->deleteFileAfterSend(true);
+    }
+
+    public function downloadVehicleDamageImages($id) {
+        $accident = $this->accidentRepository->findById(base64_decode($id));
+        if(!$accident) {
+            return redirect()->back()->with('error', 'Accident not found');
+        }
+
+        $images = $accident->vehicalDahicalImages; // Assuming images is a collection of image paths
+        if($images->isEmpty()) {
+            return redirect()->back()->with('error', 'No images found for this accident');
+        }
+        $zipFileName = 'vehicle_damage_images_' . time() . '.zip';
+        $zip = new \ZipArchive();
+        if ($zip->open(public_path($zipFileName), \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === TRUE) {
+            foreach ($images as $image) {
+                $url = $image->images;
+                $storagePath = str_replace(
+                    asset('storage'),
+                    storage_path('app/public'),
+                    $url
+                );
+                if (file_exists($storagePath)) {
+                    $zip->addFile($storagePath, basename($storagePath));
+                }
+            }
+            $zip->close();
+        } else {
+            return redirect()->back()->with('error', 'Failed to create zip file');
+        }
+
+        return response()->download(public_path($zipFileName))->deleteFileAfterSend(true);
+    }
 
 }

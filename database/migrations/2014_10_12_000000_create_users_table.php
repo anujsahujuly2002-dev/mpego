@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('state');
             $table->string('zip_code');
-            $table->string('country');
+            $table->string('country')->nullable();
              $table->enum('terms_condition',['0','1'])->default('0');
             $table->rememberToken();
             $table->softDeletes();

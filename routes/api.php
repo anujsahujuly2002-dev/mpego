@@ -91,7 +91,7 @@ Route::middleware('auth:api')->group(function() {
         Route::post("delete-repair-estimate-image","deleteRepairEstimateImage");
         Route::post("delete-car-seats-image","deleteCarSeatsImage");
         Route::post("delete-injury-image","deleteInjuryImage");
-        Route::post("   ","deletePoliceReportImage");
+        Route::post("delete-police-report-image","deletePoliceReportImage");
 
     });
 

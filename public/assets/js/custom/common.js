@@ -77,17 +77,12 @@ const showErrorMessage = async (form, res, formData) => {
                 $("#" + form).find('input[name="' + index + '[]"]').addClass("is-invalid");
             }
             if (index == "multiple_images") {
-                $("#" + form)
-                    .find('input[name="' + index + '[]"]')
-                    .addClass("is-invalid");
+                $("#" + form).find('input[name="' + index + '[]"]').addClass("is-invalid");
             }
             if (index == "permission") {
                 $("." + index + "-error").css("display", "block");
             }
-            if (
-                !errors.error?.permission ||
-                errors.error.permission.length === 0
-            ) {
+            if (!errors.error?.permission || errors.error.permission.length === 0) {
                 $(".permission-error").css("display", "none");
             }
             if (index == "country_description") {
@@ -99,38 +94,24 @@ const showErrorMessage = async (form, res, formData) => {
             if (index == "package_description") {
                 $("." + index + "-error").css("display", "block");
             }
-            if (
-                !errors.error?.country_description ||
-                errors.error.country_description.length === 0
-            ) {
+            if (!errors.error?.country_description || errors.error.country_description.length === 0) {
                 $(".country_description-error").css("display", "none");
             }
-            if (!errors.error?.destination_description ||errors.error.destination_description.length === 0
-            ) {
+            if (!errors.error?.destination_description ||errors.error.destination_description.length === 0) {
                 $(".destination_description-error").css("display", "none");
             }
-            if (
-                !errors.error?.price_hide_show ||
-                errors.error.price_hide_show.length === 0
-            ) {
+            if (!errors.error?.price_hide_show || errors.error.price_hide_show.length === 0) {
                 $(".price_hide_show-error").css("display", "none");
             }
             if (!errors.error?.package_book_online || errors.error.package_book_online.length === 0) {
                 $(".package_book_online-error").css("display", "none");
             }
-            if (
-                !errors.error?.package_description ||
-                errors.error.package_description.length === 0
-            ) {
+            if (!errors.error?.package_description || errors.error.package_description.length === 0) {
                 $(".package_description-error").css("display", "none");
             }
 
-            $("#" + form)
-                .find('select[name="' + index + '"]')
-                .addClass("is-invalid");
-            $("#" + form)
-                .find('textarea[name="' + index + '"]')
-                .addClass("is-invalid");
+            $("#" + form) .find('select[name="' + index + '"]').addClass("is-invalid");
+            $("#" + form).find('textarea[name="' + index + '"]').addClass("is-invalid");
             $("." + index + "-error").text(errors.error[index]);
         }
     } else if ((await checkStatus(res)) == 500 && !errors.status) {

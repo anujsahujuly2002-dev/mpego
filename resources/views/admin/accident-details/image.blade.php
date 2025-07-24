@@ -70,7 +70,7 @@
         .image-actions .btn i {
             font-size: 16px;
         }
-        
+
         /* Enhanced Image Preview Modal */
         .preview-modal {
             padding-left: 0 !important;
@@ -245,7 +245,7 @@
         .zoom-level.visible {
             opacity: 1;
         }
-        
+
         /* Loading animation */
         .preview-loading {
             position: absolute;
@@ -274,6 +274,9 @@
                     <div class="card">
                         <div class="card-header border-bottom border-dashed d-flex justify-content-between align-items-center">
                             <h4 class="card-title mb-0 flex-grow-1">Accident Scence Image List</h4>
+                            <a class="btn btn-primary btn-sm" href="{{route('admin.accident.download.all.images',request()->id)}}" title="Download All">
+                                <i class="ti ti-download"></i> Download All
+                            </a>
                         </div>
                         <div class="card-body">
                             <div class="row g-4">
@@ -289,7 +292,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>    
+                                    </div>
                                 @endforeach
                             </div>
                         </div>
@@ -304,6 +307,9 @@
                     <div class="card">
                         <div class="card-header border-bottom border-dashed d-flex justify-content-between align-items-center">
                             <h4 class="card-title mb-0 flex-grow-1">Vehical Damge Image List</h4>
+                             <a class="btn btn-primary btn-sm" href="{{route('admin.accident.download.vehicle.damage.images',request()->id)}}" title="Download All">
+                                <i class="ti ti-download"></i> Download All
+                            </a>
                         </div>
                         <div class="card-body">
                             <div class="row g-4">
@@ -319,7 +325,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>    
+                                    </div>
                                 @endforeach
                             </div>
                         </div>
@@ -327,8 +333,8 @@
                 </div>
             </div>
         @endif
-        
-        @if ($accident->carSeatsImages->count()>0)        
+
+        @if ($accident->carSeatsImages->count()>0)
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -349,7 +355,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>    
+                                    </div>
                                 @endforeach
                             </div>
                         </div>
@@ -378,7 +384,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>    
+                                    </div>
                                 @endforeach
                             </div>
                         </div>
@@ -407,7 +413,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>    
+                                    </div>
                                 @endforeach
                             </div>
                         </div>
@@ -417,7 +423,7 @@
         @endif
     </div>
 
-   
+
     <!-- Enhanced Image Preview Modal -->
     <div class="modal fade preview-modal" id="viewImageModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -494,23 +500,23 @@
         resetImageState();
         loadingEl.style.display = 'block';
         previewImage.style.opacity = '0';
-        
+
         previewImage.onload = function() {
             loadingEl.style.display = 'none';
             previewImage.style.opacity = '1';
-            
+
             // Enable interactions
             previewImage.addEventListener('mousedown', startDrag);
             document.addEventListener('mousemove', drag);
             document.addEventListener('mouseup', endDrag);
             previewContainer.addEventListener('wheel', handleWheel);
-            
+
             // Enable touch events
             previewImage.addEventListener('touchstart', handleTouchStart);
             previewImage.addEventListener('touchmove', handleTouchMove);
             previewImage.addEventListener('touchend', handleTouchEnd);
         };
-        
+
         previewImage.src = imageUrl;
         new bootstrap.Modal(document.getElementById('viewImageModal')).show();
     }

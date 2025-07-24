@@ -16,9 +16,9 @@ class UserManagementRepository
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function all()
+    public function getAllClients()
     {
-        return User::latest();
+        return User::whereDoesntHave('roles')->orWhereHas('roles',fn($q)=>$q->whereIn('name',['existing-client','prior-client','potential-client']))->latest();
     }
 
     /**
@@ -78,4 +78,18 @@ class UserManagementRepository
         return $user;
     }
 
+    public function getAllEmployees()
+    {
+        return User::whereHas('roles', fn($q) => $q->whereNotIn('name',['existing-client','prior-client','potential-client']))->latest();
+    }
+
+    public function update($data)
+    {
+        $user = User::find($data['id']);
+        if ($user) {
+            $user->update($data);
+            return $user;
+        }
+        return null;
+    }
 }

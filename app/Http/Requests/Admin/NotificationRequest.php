@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class UserCreateRequest extends FormRequest
+class NotificationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,21 +26,16 @@ class UserCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'role'=>'required',
-            'name'=> 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email',
-            'phone' => 'required|string|max:15|unique:users,phone',
-            'date_of_birth' => 'required',
-            'address' => 'required|string|max:255',
-            'street_address' => 'required|string|max:255',
-            'apt_suite' => 'required|string|max:50',
-            'city' => 'required|string|max:100',
-            'state' => 'required|string|max:100',
-            'zip_code' => 'required|string|max:20',
-            'terms_condition' => 'required|boolean',
-            'password' => 'required|string',
+            'notification_type'=>'required|in:immediate,schedule',
+            'schedule_time'=>'required_if:notification_type,schedule',
+            'notification_message' => ['required', function ($attribute, $value, $fail) {
+                if (trim(strip_tags($value)) === '') {
+                    $fail('The notification message field is required.');
+                }
+            }],
         ];
     }
+
     /**
      * Handle a failed validation attempt.
      *
@@ -51,7 +46,7 @@ class UserCreateRequest extends FormRequest
      */
     protected function failedValidation(Validator $validator)
     {
-        $errors = $validator->errors();
+        $errors = $validator->errors()->first();
         throw new HttpResponseException(
             response()->json([
                 'status' => false,

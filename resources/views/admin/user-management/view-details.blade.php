@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @push('title')
-    User Details
+    Client Details
 @endpush
 @section('content')
  <div class="page-container">
@@ -9,9 +9,7 @@
                 <div class="card mb-3" >
                     <div class="card-body px-4 py-4">
                         <div class="text-center mb-4">
-                            <img src="{{ $user?->userImages?->first()->image ?? asset('images/default-user.png') }}"
-                                 alt="User Picture"
-                                 class="rounded-circle mb-3 border border-3 border-secondary"
+                            <img src="{{ $user?->userImages?->first()->image ?? asset('images/default-user.png') }}" alt="User Picture"class="rounded-circle mb-3 border border-3 border-secondary"
                                  width="110" height="110">
                             <h3 class="fw-bold mb-0">{{ $user->name }}</h3>
                         </div>
@@ -173,7 +171,7 @@
             carDetailListTable = $("#carDetailList").DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('admin.users.car.details',request()->id) }}",
+                ajax: "{{ route('admin.users.clients.car.details',request()->id) }}",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
                     { data: 'make', name: 'make' },
@@ -186,7 +184,7 @@
             carInsurenceInfoListTable = $("#carInsurenceInfoList").DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('admin.users.car.insurance.info',request()->id) }}",
+                ajax: "{{ route('admin.users.clients.car.insurance.info',request()->id) }}",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
                     { data: 'carrier', name: 'carrier' },
@@ -198,7 +196,7 @@
             healthInsurenceListTable = $("#healthInsurenceList").DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('admin.users.health.insurance.info',request()->id) }}",
+                ajax: "{{ route('admin.users.clients.health.insurance.info',request()->id) }}",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
                     { data: 'medi_care', name: 'medi_care' },
@@ -211,7 +209,7 @@
             twoServiceListTable = $("#twoServiceList").DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('admin.users.two.service.info',request()->id) }}",
+                ajax: "{{ route('admin.users.clients.two.service.info',request()->id) }}",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
                     { data: 'membership_number', name: 'membership_number' },
@@ -224,7 +222,7 @@
             emergencyContactListTable = $("#emergencyContactList").DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('admin.users.emergency.contact.info',request()->id) }}",
+                ajax: "{{ route('admin.users.clients.emergency.contact.info',request()->id) }}",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
                     { data: 'emergency_contact_name', name: 'emergency_contact_name' },

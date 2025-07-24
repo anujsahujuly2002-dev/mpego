@@ -75,4 +75,9 @@ class User extends Authenticatable
     {
         $this->attributes['date_of_birth'] = $value ? date('Y-m-d', strtotime($value)) : NULL;
     }
+
+    public function setCountryAttribute($value)
+    {
+        $this->attributes['country'] = "USA";
+    }
 }

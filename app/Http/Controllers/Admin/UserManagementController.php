@@ -19,13 +19,13 @@ class UserManagementController extends Controller
         $this->userManagementRepository = New UserManagementRepository();
     }
 
-    public function index(Request $request) {
+    public function client(Request $request) {
 
-        if (!auth()->user()->can('user-list')) {
-            throw UnauthorizedException::forPermissions(['user-list']);
+        if (!auth()->user()->can('client-list')) {
+            throw UnauthorizedException::forPermissions(['client-list']);
         }
         if($request->ajax()):
-            $users = $this->userManagementRepository->all();
+            $users = $this->userManagementRepository->getAllClients();
             return datatables()->of($users)
                 ->addIndexColumn()
                 ->editColumn('name', function ($user) {
@@ -34,32 +34,22 @@ class UserManagementController extends Controller
                 ->editColumn('email', function ($user) {
                     return $user->email;
                 })
-                ->addColumn('role', function ($row) {
-                    return $row->getRoleNames()->first() ? ucwords(str_replace('-',' ',$row->getRoleNames()->first())) : 'No Role Assigned';
-                    ;
-                })
                 ->addColumn('action', function ($row) {
                     $btn = '';
-                    if (auth()->user()->can('user-view') && empty($row->getRoleNames()->first())) {
-                        $btn .= ' <a href="'.route('admin.users.view.details',base64_encode($row->id)).'" class="btn btn-soft-primary btn-icon btn-sm rounded-circle"> <i class="ti ti-eye"></i></a>';
-                    }
-                    if (auth()->user()->can('user-edit') && !empty($row->getRoleNames()->first())) {
-                        $btn .= '<a href="' . route('admin.users.edit', $row->id) . '" class="btn btn-soft-success btn-icon btn-sm rounded-circle"> <i class="ti ti-pencil"></i></a>';
-                    }
-                    if (auth()->user()->can('user-delete')  && !empty($row->getRoleNames()->first())) {
-                        $btn .= ' <a href="javascript: void(0);" class="btn btn-soft-danger btn-icon btn-sm rounded-circle"  onclick="deleteRecord(\'' . route('admin.users.delete') . '\',' . $row->id . ')"> <i class="ti ti-trash"></i></a>';
+                    if (auth()->user()->can('client-view')) {
+                        $btn .= ' <a href="'.route('admin.users.clients.view.details',base64_encode($row->id)).'" class="btn btn-soft-primary btn-icon btn-sm rounded-circle"> <i class="ti ti-eye"></i></a>';
                     }
                     return $btn;
                 })
                 ->rawColumns(['action', 'role'])
                 ->make(true);
         endif;
-        return view('admin.user-management.index');
+        return view('admin.user-management.clients.index');
     }
 
     public function viewDetails ($id) {
-        if (!auth()->user()->can('user-view')) {
-            throw UnauthorizedException::forPermissions(['user-view']);
+        if (!auth()->user()->can('client-view')) {
+            throw UnauthorizedException::forPermissions(['client-view']);
         }
         $user = $this->userManagementRepository->find(base64_decode($id));
         return view('admin.user-management.view-details', compact('user'));
@@ -115,30 +105,29 @@ class UserManagementController extends Controller
     }
 
     public function create() {
-        if (!auth()->user()->can('user-create')) 
-        throw UnauthorizedException::forPermissions(['user-create']);
+        if (!auth()->user()->can('client-create'))
+        throw UnauthorizedException::forPermissions(['client-create']);
         $roles = Role::whereNot('name','super-admin')->orderBy('name','ASC')->get();
-        return view('admin.user-management.create',compact('roles'));
+        return view('admin.user-management.clients.create',compact('roles'));
     }
 
     public function store(UserCreateRequest $request) {
-        if (!auth()->user()->can('user-create')) {
-            throw UnauthorizedException::forPermissions(['user-create']);
+        if (!auth()->user()->can('client-create')) {
+            throw UnauthorizedException::forPermissions(['client-create']);
         }
         try {
             $data = $request->all();
-            $data['password'] = 'Mepego@123#';
             $user = $this->userManagementRepository->store($data);
             if ($user) {
                 return response()->json([
                     'status' => true,
-                    'message' => "User information stored successfully",
-                    'url' => route('admin.users.index')
+                    'message' => "Client information stored successfully",
+                    'url' => route('admin.users.clients.index')
                 ], 200);
             } else {
                 return response()->json([
                     'status' => false,
-                    'message' => "User information not stored, Please try again",
+                    'message' => "Client information not stored, Please try again",
                 ], 500);
             }
         } catch (Exception $e) {
@@ -171,6 +160,112 @@ class UserManagementController extends Controller
                     'status' => false,
                     'message' => "User not found",
                 ], 404);
+            }
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+
+    public function employee(Request $request) {
+        if (!auth()->user()->can('employee-list')) {
+            throw UnauthorizedException::forPermissions(['employee-list']);
+        }
+        if($request->ajax()):
+            $users = $this->userManagementRepository->getAllEmployees();
+            return datatables()->of($users)
+                ->addIndexColumn()
+                ->editColumn('name', function ($user) {
+                    return ucwords(str_replace('-', ' ', $user->name));
+                })
+                ->editColumn('email', function ($user) {
+                    return $user->email;
+                })
+                ->addColumn('role', function ($user) {
+                    return ucwords(str_replace('-',' ',$user->getRoleNames()->implode(', ')));
+                })
+                ->addColumn('action', function ($row) {
+                    $btn = '';
+                    if (auth()->user()->can('employee-edit')) {
+                        $btn .= ' <a href="'.route('admin.users.employee.edit',base64_encode($row->id)).'" class="btn btn-soft-primary btn-icon btn-sm rounded-circle"> <i class="ti ti-edit"></i></a>';
+                    }
+                    if (auth()->user()->can('employee-delete')) {
+                        $btn .= ' <button type="button" class="btn btn-soft-danger btn-icon btn-sm rounded-circle delete-user"  onclick="deleteRecord(\''.route('admin.users.employee.delete').'\','.$row->id.')"> <i class="ti ti-trash"></i></button>';
+                    }
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        endif;
+        return view('admin.user-management.employee.index');
+    }
+
+    public function employeeCreate() {
+        if (!auth()->user()->can('employee-create')) {
+            throw UnauthorizedException::forPermissions(['employee-create']);
+        }
+        $roles = Role::whereNotIn('name',['super-admin','existing-client','prior-client','potential-client'])->orderBy('name','ASC')->get();
+        return view('admin.user-management.employee.create',compact('roles'));
+    }
+
+    public  function employeeStore(UserCreateRequest $request) {
+        if (!auth()->user()->can('employee-create')) {
+            throw UnauthorizedException::forPermissions(['employee-create']);
+        }
+        try {
+            $data = $request->all();
+            $data['password'] = 'Mepego@123#';
+            $user = $this->userManagementRepository->store($data);
+            if ($user) {
+                return response()->json([
+                    'status' => true,
+                    'message' => "Employee information stored successfully",
+                    'url' => route('admin.users.employee.index')
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => "Employee information not stored, Please try again",
+                ], 500);
+            }
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function employeeEdit($id) {
+        if (!auth()->user()->can('employee-edit')) {
+            throw UnauthorizedException::forPermissions(['employee-edit']);
+        }
+        $user = $this->userManagementRepository->find(base64_decode($id));
+        $roles = Role::whereNotIn('name',['super-admin','existing-client','prior-client','potential-client'])->orderBy('name','ASC')->get();
+        return view('admin.user-management.employee.edit', compact('user', 'roles'));
+    }
+
+    public function employeeUpdate(UserCreateRequest $request) {
+        if (!auth()->user()->can('employee-edit')) {
+            throw UnauthorizedException::forPermissions(['employee-edit']);
+        }
+        try {
+            $data = $request->all();
+            $user = $this->userManagementRepository->update($data);
+            if ($user) {
+                return response()->json([
+                    'status' => true,
+                    'message' => "Employee information updated successfully",
+                    'url' => route('admin.users.employee.index')
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => "Employee information not updated, Please try again",
+                ], 500);
             }
         } catch (Exception $e) {
             return response()->json([

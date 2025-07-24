@@ -22,7 +22,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
         .header {
-            background-color: #4f46e5;
+            background-color: #64c01c;
             padding: 20px;
             text-align: center;
             color: white;
@@ -36,7 +36,7 @@
         .otp {
             font-size: 36px;
             font-weight: bold;
-            color: #4f46e5;
+            color: #64c01c;
             padding: 10px 20px;
             background-color: #f0f4ff;
             border-radius: 6px;
@@ -51,12 +51,12 @@
             color: #888;
         }
         .footer a {
-            color: #4f46e5;
+            color: #64c01c;
             text-decoration: none;
         }
         .button {
             padding: 10px 20px;
-            background-color: #4f46e5;
+            background-color: #64c01c;
             color: white;
             border-radius: 5px;
             text-decoration: none;

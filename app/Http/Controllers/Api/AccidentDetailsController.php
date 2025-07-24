@@ -278,4 +278,5 @@ class AccidentDetailsController extends Controller
             ], 500);
         }
     }
+    
 }

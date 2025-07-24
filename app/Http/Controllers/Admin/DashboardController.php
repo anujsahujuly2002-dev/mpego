@@ -5,19 +5,26 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\LogoutRepository;
+use App\Repositories\AccidentRepository;
 use Yajra\DataTables\Facades\DataTables;
+use App\Repositories\UserManagementRepository;
 use Spatie\Permission\Exceptions\UnauthorizedException;
 
 class DashboardController extends Controller
 {
-    private $logoutRepository;
+    private $logoutRepository,$userManagementRepository,$accidentRepository;
 
     public function __construct()
     {
+        $this->accidentRepository = New AccidentRepository();
+        $this->userManagementRepository = New UserManagementRepository();
         $this->logoutRepository = New LogoutRepository;
     }
     public function dashboard () {
-        return view('admin.dashboard');   
+        $toatalUser = $this->userManagementRepository->getAllClients()->count();
+        $totalNoOfAccident = $this->accidentRepository->all()->count();
+        // $tha
+        return view('admin.dashboard',compact('toatalUser','totalNoOfAccident'));
     }
 
     public function logout(Request $request){
@@ -49,7 +56,7 @@ class DashboardController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $btn = '';
-                   
+
                     if (auth()->user()->can('delete-account-recover')) {
                         $btn .= ' <a href="javascript: void(0);" class="btn btn-soft-danger btn-icon btn-sm rounded-circle"  onclick="restoreRecord(\'' . route('admin.delete.account.recover') . '\',' . $row->id . ')"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-refresh"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" /><path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" /></svg></a>';
                     }
@@ -83,15 +90,15 @@ class DashboardController extends Controller
                 ], 500);
 
             }
-            
+
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
                 'message' => $e->getMessage(),
             ], 422);
         }
-        
+
     }
 
 
-}   
+}

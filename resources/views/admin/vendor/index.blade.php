@@ -1,34 +1,37 @@
 @extends('admin.layouts.master')
 @push('title')
-    Permission List
+    Vendor List
 @endpush
+
 @section('content')
     <div class="page-container">
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header border-bottom border-dashed d-flex justify-content-between align-items-center">
-                        <h4 class="card-title mb-0 flex-grow-1">Permission List</h4>
-                        @can('permission-create')
-                            <a href="{{ route('admin.permissions.create') }}" class="btn btn-sm btn-primary">
+                        <h4 class="card-title mb-0 flex-grow-1">Vendor List</h4>
+                        @can('vendor-create')
+                            <a href="{{route('admin.vendor.create')}}" class="btn btn-sm btn-primary">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                     <path d="M12 5l0 14" />
                                     <path d="M5 12l14 0" />
-                                </svg>Add Permission
+                                </svg>Add Vendor
                             </a>
                         @endcan
                     </div><!-- end card header -->
                     <div class="card-body">
-                        {{-- <h4 class="header-title">Permission List</h4> --}}
-                        <table id="permissionList" class="table table-striped dt-responsive nowrap w-100">
+                        <table id="clientList" class="table table-striped dt-responsive nowrap w-100">
                             <thead>
                                 <tr>
                                     <th>Sr No</th>
-                                    <th>Permission Group</th>
-                                    <th>Permission Name</th>
+                                    <th>Name of Business</th>
+                                    <th>Name of Contact</th>
+                                    <th>Email</th>
+                                    <th>Phone Number</th>
+                                    <th>Address</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -48,38 +51,21 @@
 @push('script')
     <script>
         var table;
-        $(function() {
-            table= $("#permissionList").DataTable({
+        $(document).ready(function() {
+            table=$('#clientList').DataTable({
                 processing: true,
-                scrollY: true,
-                scrollX: true,
                 serverSide: true,
-                autoWidth: false,
-                scrollCollapse: true,
-                bSearchable: true,
-                ajax: "{{ route('admin.permissions.index') }}",
-                columns: [{
-                        data: 'DT_RowIndex',
-                        name: 'DT_RowIndex',
-                        orderable: false,
-                        searchable: false
-                    },
-                    {
-                        data: 'group',
-                        name: 'group'
-                    },
-                    {
-                        data: 'name',
-                        name: 'name'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
+                ajax: "{{ route('admin.vendor.index') }}",
+                columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                    {data: 'name_of_business', name: 'name_of_business'},
+                    {data: 'name_of_contact', name: 'name_of_contact'},
+                    {data: 'email', name: 'email'},
+                    {data: 'phone_number', name: 'phone_number'},
+                    {data: 'address', name: 'address'},
+                    {data: 'action', name: 'action', orderable: false, searchable: false}
                 ]
             });
-        })
+        });
     </script>
 @endpush

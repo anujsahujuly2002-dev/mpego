@@ -13,15 +13,16 @@
                 <div class="card-body">
                     <form id="permissionForm">
                         @csrf
+                        <input type="hidden" name="id" value="{{$permission->id}}">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="group" class="form-label">Permission Group</label>
-                                <input type="text" class="form-control" id="group" placeholder="Permission Group" name="group">
+                                <input type="text" class="form-control" id="group" placeholder="Permission Group" name="group" value="{{$permission->group}}">
                                 <div class="invalid-feedback group-error"></div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="name" class="form-label">Permission Name</label>
-                                <input type="text" class="form-control" id="name" placeholder="Enter Permission name" name="name">
+                                <input type="text" class="form-control" id="name" placeholder="Enter Permission name" name="name" value="{{$permission->name}}">
                                 <div class="invalid-feedback name-error"></div>
                             </div>
                         </div>
@@ -38,7 +39,7 @@
 <script>
     permissionForm.onsubmit = async (e)=>{
         e.preventDefault();
-        makePostRequest("{{route('admin.permissions.store')}}",permissionForm,'permissionForm');
+        makePostRequest("{{route('admin.permissions.update')}}",permissionForm,'permissionForm');
     }
 </script>
 @endpush

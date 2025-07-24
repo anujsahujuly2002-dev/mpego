@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class UserCreateRequest extends FormRequest
+class VendorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,21 +26,14 @@ class UserCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'role'=>'required',
-            'name'=> 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email',
-            'phone' => 'required|string|max:15|unique:users,phone',
-            'date_of_birth' => 'required',
+            'name_of_business' => 'required|string|max:255',
+            'name_of_contact' => 'required|string|max:255',
+            'email' => 'required|email|unique:vendors,email,' . Request::input('id'),
+            'phone_number' => 'required|string|max:15',
             'address' => 'required|string|max:255',
-            'street_address' => 'required|string|max:255',
-            'apt_suite' => 'required|string|max:50',
-            'city' => 'required|string|max:100',
-            'state' => 'required|string|max:100',
-            'zip_code' => 'required|string|max:20',
-            'terms_condition' => 'required|boolean',
-            'password' => 'required|string',
         ];
     }
+
     /**
      * Handle a failed validation attempt.
      *

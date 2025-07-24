@@ -22,7 +22,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
         .header {
-            background-color: #4f46e5;
+            background-color: #64c01c;
             padding: 20px;
             text-align: center;
             color: white;
@@ -35,7 +35,7 @@
         }
         .button {
             padding: 10px 20px;
-            background-color: #4f46e5;
+            background-color: #64c01c;
             color: white; /* ← Change this line */
             border-radius: 5px;
             text-decoration: none;
