@@ -28,19 +28,6 @@ class NotificationController extends Controller
                 ->editColumn('message',function($row){
                     return strip_tags($row->message);
                 })
-                // ->editColumn('name', function ($user) {
-                //     return ucwords(str_replace('-', ' ', $user->name));
-                // })
-                // ->editColumn('email', function ($user) {
-                //     return $user->email;
-                // })
-                // ->addColumn('action', function ($row) {
-                //     $btn = '';
-                //     if (auth()->user()->can('client-view')) {
-                //         $btn .= ' <a href="'.route('admin.users.clients.view.details',base64_encode($row->id)).'" class="btn btn-soft-primary btn-icon btn-sm rounded-circle"> <i class="ti ti-eye"></i></a>';
-                //     }
-                //     return $btn;
-                // })
                 ->rawColumns(['action', 'role'])
                 ->make(true);
         endif;

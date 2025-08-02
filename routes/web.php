@@ -116,5 +116,9 @@ Route::middleware('auth')->group(function(){
 
     Route::controller(GiftCardController::class)->prefix('gift-card')->name('gift.card.')->group(function(){
         Route::get('/','index')->name('index');
+        Route::get('/create','create')->name('create');
+        Route::post('/store','store')->name('store');
+        Route::post('/delete','delete')->name('delete');
     });
+
 });
