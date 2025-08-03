@@ -19,7 +19,7 @@ class GiftCardController extends Controller
             return  datatables()->of($giftCards)
             ->addIndexColumn()
             ->editColumn('gift-card-image',function($row){
-                return "<image src='".env('IMAGE_URL')."/storage/upload/gift-card/".$row->{'gift-card-image'}."'>";
+                return "<image src='".env('IMAGE_URL')."/storage/upload/gift-card/".$row->{'gift-card-image'}."' height=100 width:100>";
             })
             ->addColumn('action',function($row){
                 return  ' <a href="javascript: void(0);" class="btn btn-soft-danger btn-icon btn-sm rounded-circle"  onclick="deleteRecord(\'' . route('admin.gift.card.delete') . '\',' . $row->id . ')"> <i class="ti ti-trash"></i></a>';

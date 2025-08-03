@@ -99,6 +99,9 @@ Route::middleware('auth:api')->group(function() {
         Route::post('/get-user-emergency','getUserEmergency');
         Route::get('/help-info','helpInfo');
         Route::get('/account-delete-reasons','getAccountDeleteReasons');
+        Route::post('gift-card-list',"giftCardList");
+        Route::get('notification-list','notificationList');
+        Route::post('gift-scratch','updateScratchedAt');
     });
 
 });

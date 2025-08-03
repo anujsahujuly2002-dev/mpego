@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use Exception;
 use Illuminate\Http\Request;
+use App\Models\UserBirthdayGift;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Repositories\HelpRepository;
 use App\Http\Requests\UserEmergencyRequest;
@@ -69,7 +71,7 @@ class UserEmergencyController extends Controller
     }
 
     public function helpInfo() {
-        try {   
+        try {
             $helpInfo = $this->helpRepository->getSettings();
             if ($helpInfo) {
                 return response()->json([
@@ -103,7 +105,69 @@ class UserEmergencyController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'status' => false,
-                'error' => $e->getMessage(),
+                // 'error' => $e->getMessage(),
+                'message' => "Some error occurred while fetching the account delete reasons. Please try again later.",
+            ], 500);
+        }
+    }
+
+
+    public function giftCardList() {
+        $giftCard  = UserBirthdayGift::where('user_id',auth()->user()->id)->with('giftCard')->get();
+        return response()->json([
+            'status'=>true,
+            "message"=>"Gift Card Fetched Successfully",
+            "data"=>$giftCard,
+        ]);
+    }
+
+    public function updateScratchedAt(Request $request) {
+        try {
+            if(!$request->input('gift_card_id')) {
+                return response()->json([
+                    'status'=>false,
+                    'message'=>"Gift Card ID is required",
+                ],400);
+            }
+            UserBirthdayGift::find($request->input('gift_card_id'))->update([
+                'scratched_at'=>now(),
+            ]);
+            return response()->json([
+                'status' => true,
+                "message" => "Gift card scratch successfully",
+            ]);
+        }catch (Exception $e) {
+            return response()->json([
+                'status' => false,
+                // 'error' => $e->getMessage(),
+                'message' => "Some error occurred while fetching the account delete reasons. Please try again later.",
+            ], 500);
+        }
+    }
+
+    public function notificationList() {
+        try {
+            $notificationLists = DB::table('notifications')->where('notifiable_id',auth()->user()->id)->get('data');
+            $cleanedData = [];
+
+            foreach ($notificationLists as $notification) {
+                $data = json_decode($notification->data, true); // Decode the JSON string
+                if (isset($data['title'], $data['body'])) {
+                    $cleanedData[] = [
+                        'title' => $data['title'],
+                        'body' => $data['body'],
+                    ];
+                }
+            }
+            return response()->json([
+                'status' => true,
+                "message" => "Notification Fetch Successfully",
+                'data'=>$cleanedData,
+            ]);
+        }catch (Exception $e) {
+            return response()->json([
+                'status' => false,
+                // 'error' => $e->getMessage(),
                 'message' => "Some error occurred while fetching the account delete reasons. Please try again later.",
             ], 500);
         }

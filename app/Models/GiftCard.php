@@ -13,4 +13,8 @@ class GiftCard extends Model
         'gift-card-image',
         'gift-card-expire_at'
     ];
+
+    public function userBirthDayGift() {
+        return $this->hasOne(UserBirthdayGift::class,'gift_card_id','id');
+    }
 }

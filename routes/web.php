@@ -13,13 +13,17 @@ use Illuminate\Support\Facades\Artisan;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('artisan-call',function(){
+    Artisan::call('migrate');
+    Artisan::call('app:send-birthday-wishes');
+});
 Route::namespace('Auth')->middleware(['guest'])->group(function() {
     Route::controller(AuthController::class)->group(function(){
         Route::get('/','login')->name('login');
         Route::post('do-login','doLogin')->name('do.login');
         Route::get("forget-password-link","forgetPasswordResetLink")->name('forget.password.link');
         Route::post("change-password","changePassword")->name('change.password');
+        Route::get('/gift-token','giftToken')->name('gift.token');
     });
 
 });
@@ -119,6 +123,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/create','create')->name('create');
         Route::post('/store','store')->name('store');
         Route::post('/delete','delete')->name('delete');
+        Route::get('/gift-token','giftToken')->name('gift.token');
     });
 
 });
