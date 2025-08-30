@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use Exception;
 use Illuminate\Http\Request;
+use App\Models\ServiceRequest;
 use App\Models\UserBirthdayGift;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Repositories\HelpRepository;
 use App\Http\Requests\UserEmergencyRequest;
+use App\Http\Requests\Api\ServiceFormRequest;
 use App\Repositories\UserEmergencyRepository;
 
 class UserEmergencyController extends Controller
@@ -113,11 +115,28 @@ class UserEmergencyController extends Controller
 
 
     public function giftCardList() {
-        $giftCard  = UserBirthdayGift::where('user_id',auth()->user()->id)->with('giftCard')->get();
+        $giftCards = UserBirthdayGift::where('user_id', auth()->user()->id)
+        ->with('giftCard')
+        ->get()
+        ->map(function($item) {
+            return [
+                'id' => $item->id,
+                'gift_card_id' => $item->gift_card_id,
+                'scratched_at' => $item->scratched_at,
+                'gift_card' => [
+                    'id' => $item->giftCard->id ?? null,
+                    'gift_card_image' => $item->giftCard->gift_card_image ?? null,
+                    'gift_card_expire_at' => $item->giftCard->{"gift-card-expire_at"} ?? null,
+                    "gift_card_code" =>$item->giftCard->{"gift-card"}
+                    // add other fields as needed
+                ]
+            ];
+        });
+
         return response()->json([
             'status'=>true,
             "message"=>"Gift Card Fetched Successfully",
-            "data"=>$giftCard,
+            "data"=>$giftCards,
         ]);
     }
 
@@ -171,5 +190,17 @@ class UserEmergencyController extends Controller
                 'message' => "Some error occurred while fetching the account delete reasons. Please try again later.",
             ], 500);
         }
+    }
+
+    public function storeServiceRequest(ServiceFormRequest $request) {
+            ServiceRequest::create([
+            'user_id' => auth()->id(), // or $request->user_id if not using auth
+            'type' => $request->input("type"),
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Service request recorded successfully.',
+        ]);
     }
 }

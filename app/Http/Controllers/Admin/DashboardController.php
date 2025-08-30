@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
+use App\Models\AccidentInfo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\ServiceRequest;
 use App\Repositories\LogoutRepository;
 use App\Repositories\AccidentRepository;
 use Yajra\DataTables\Facades\DataTables;
@@ -23,8 +26,12 @@ class DashboardController extends Controller
     public function dashboard () {
         $toatalUser = $this->userManagementRepository->getAllClients()->count();
         $totalNoOfAccident = $this->accidentRepository->all()->count();
-        // $tha
-        return view('admin.dashboard',compact('toatalUser','totalNoOfAccident'));
+        $currentMonthAccidents = AccidentInfo::whereMonth('accident_date', Carbon::now()->month) ->whereYear('accident_date', Carbon::now()->year)->count();
+        // Count of unique users who requested AAA
+        $aaaUserCount = ServiceRequest::where('type', 'AAA')->count('user_id');
+        // Count of unique users who requested Tow Help
+        $towUserCount = ServiceRequest::where('type', 'TOW_HELP')->distinct('user_id')->count('user_id');
+        return view('admin.dashboard',compact('toatalUser','totalNoOfAccident','currentMonthAccidents','aaaUserCount','towUserCount'));
     }
 
     public function logout(Request $request){

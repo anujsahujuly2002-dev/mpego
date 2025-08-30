@@ -102,6 +102,7 @@ Route::middleware('auth:api')->group(function() {
         Route::post('gift-card-list',"giftCardList");
         Route::get('notification-list','notificationList');
         Route::post('gift-scratch','updateScratchedAt');
+        Route::post('/service-request', 'storeServiceRequest');
     });
 
 });

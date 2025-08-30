@@ -52,7 +52,7 @@
                                 <div class="card-body pt-0">
                                     <div class="d-flex align-items-center gap-2 justify-content-between">
                                         <div class="text-end">
-                                            <h3 class="fw-semibold">10</h3>
+                                            <h3 class="fw-semibold">{{$currentMonthAccidents}}</h3>
                                         </div>
                                     </div>
                                 </div>
@@ -70,7 +70,7 @@
                                 <div class="card-body pt-0">
                                     <div class="d-flex align-items-center gap-2 justify-content-between">
                                         <div class="text-end">
-                                            <h3 class="fw-semibold">4</h3>
+                                            <h3 class="fw-semibold">{{$aaaUserCount}}</h3>
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@
                                 <div class="card-body pt-0">
                                     <div class="d-flex align-items-center gap-2 justify-content-between">
                                         <div class="text-end">
-                                            <h3 class="fw-semibold">4</h3>
+                                            <h3 class="fw-semibold">{{$towUserCount}}</h3>
                                         </div>
                                     </div>
                                 </div>

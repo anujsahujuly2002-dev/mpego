@@ -17,4 +17,14 @@ class GiftCard extends Model
     public function userBirthDayGift() {
         return $this->hasOne(UserBirthdayGift::class,'gift_card_id','id');
     }
+
+    public function getAttribute($key)
+    {
+        if ($key === 'gift_card_image') {
+            // dd($key);
+            $value = $this->getOriginal('gift-card-image');
+            return !is_null($value) ? env('IMAGE_URL') . '/storage/upload/gift-card/' . $value : null;
+        }
+        return parent::getAttribute($key);
+    }
 }
