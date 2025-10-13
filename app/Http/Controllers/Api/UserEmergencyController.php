@@ -12,6 +12,7 @@ use App\Repositories\HelpRepository;
 use App\Http\Requests\UserEmergencyRequest;
 use App\Http\Requests\Api\ServiceFormRequest;
 use App\Repositories\UserEmergencyRepository;
+use App\Http\Requests\UserEmergencyRequestUpdate;
 
 class UserEmergencyController extends Controller
 {
@@ -202,5 +203,58 @@ class UserEmergencyController extends Controller
             'status' => 'success',
             'message' => 'Service request recorded successfully.',
         ]);
+    }
+
+    public function update(UserEmergencyRequestUpdate $request) {
+        try {
+            $userId = auth()->user()->id;
+            $data = $request->only(['emergency_contact_name', 'emergency_contact_phone']);
+            $emergency = $this->userEmergencyRepository->update($request->input('id'), $data);
+            if ($emergency) {
+                return response()->json([
+                    'status' => true,
+                    'message' => "Emergency contact updated successfully",
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => "Failed to update emergency contact",
+                ], 500);
+            }
+        }catch (Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => "An error occurred: " . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function delete(Request $request) {
+        try {
+            if(!$request->input('id')) {
+                return response()->json([
+                    'status' => false,
+                    'message' => "ID is required",
+                ], 400);
+            }
+
+            $deleted = $this->userEmergencyRepository->delete($request->input('id'));
+            if ($deleted) {
+                return response()->json([
+                    'status' => true,
+                    'message' => "Emergency contact deleted successfully",
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => "Failed to delete emergency contact",
+                ], 500);
+            }
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => "An error occurred: " . $e->getMessage(),
+            ], 500);
+        }
     }
 }

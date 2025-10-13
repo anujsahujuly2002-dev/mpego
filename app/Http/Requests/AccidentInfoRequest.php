@@ -28,8 +28,8 @@ class AccidentInfoRequest extends FormRequest
             "user_type"=>'required|in:driver,passenger',
             "accident_date"=>'required|date',
             "accident_time"=>'required|date_format:H:i',
-            'who_was_with_you' => 'required|string|max:255',
-            'description' => 'required|string|max:1000',
+            // 'who_was_with_you' => 'required|string|max:255',
+            // 'description' => 'required|string|max:1000',
             'contacts'=>'array|max:4',
             'contacts.*.name'=>"required|string",
             "contacts.*.contact_no"=>["required",'regex:/^\+\d{1,3}-\d{3}-\d{3}-\d{4}$/']

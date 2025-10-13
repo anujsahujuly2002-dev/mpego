@@ -12,6 +12,7 @@ use App\Repositories\Auth\SignUpRepository;
 use App\Repositories\Upload\UploadImageRepository;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SignupController extends Controller
 {
@@ -66,10 +67,13 @@ class SignupController extends Controller
                     'message' => $result['message']
                 ], 400);
             }
+            Auth::login($result['data']);
+            $token= $result['data']->createToken('auth_token')->accessToken;
             return response()->json([
                 'status' => true,
                 'message' => $result['message'],
-                'data' => $result['data']
+                'data' => $result['data'],
+                'token' => $token,
             ], 200);
         }catch(Exception $e){
             return response()->json([

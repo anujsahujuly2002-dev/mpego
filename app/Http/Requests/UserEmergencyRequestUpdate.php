@@ -2,16 +2,18 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class ChangePasswordRequest extends FormRequest
+class UserEmergencyRequestUpdate extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
+
+
     public function authorize(): bool
     {
         return true;
@@ -24,13 +26,23 @@ class ChangePasswordRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            // 'current_password' => 'required|string|min:8',
-            'new_password' => 'required|string|min:8|confirmed',
-            'new_password_confirmation' => 'required|string|min:8',
+        $rules = [];
+        if (!Auth::check()) {
+            $rules['user_id'] = 'required|integer|exists:users,id';
+        }
+        $rules += [
+            'id' => 'required|integer|exists:user_emergencies,id',
+            'emergency_contact_name' => 'required|string|max:255',
+            'emergency_contact_phone' => [
+                'required',
+                'string',
+                'regex:/^\+\d{1,3}-\d{3}-\d{3}-\d{4}$/', // Example format: +1-123-456-7890
+                'max:15', // Adjust max length as needed
+                'unique:user_emergencies,emergency_contact_phone'.(Auth::check() ? ','.auth()->user()->id.',user_id' :request()->input('id'))
+            ],
         ];
+        return $rules;
     }
-
 
     /**
      * Handle a failed validation attempt.

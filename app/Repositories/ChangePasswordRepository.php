@@ -15,12 +15,12 @@ class ChangePasswordRepository
      * @param  string $newPassword
      * @return bool
      */
-    public function changePassword(string $currentPassword, string $newPassword): bool
+    public function changePassword(string $newPassword): bool
     {
         $user = auth()->user();
-        if (!Hash::check($currentPassword, $user->password)) {
-            return false;
-        }
+        // if (!Hash::check($currentPassword, $user->password)) {
+        //     return false;
+        // }
 
         return $user->update([
             'password' => $newPassword,

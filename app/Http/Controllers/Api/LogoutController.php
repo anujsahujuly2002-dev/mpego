@@ -31,9 +31,9 @@ class LogoutController extends Controller
 
     public function changePassword(ChangePasswordRequest $request)
     {
-        $currentPassword = $request->input('current_password');
+        // $currentPassword = $request->input('current_password');
         $newPassword = $request->input('new_password');
-        if (!$this->changePasswordRepo->changePassword($currentPassword, $newPassword)) {
+        if (!$this->changePasswordRepo->changePassword($newPassword)) {
             return response()->json([
                 'status' => false,
                 'message' => 'Current password is incorrect'
@@ -73,7 +73,7 @@ class LogoutController extends Controller
                 'message' => 'An error occurred: ' . $e->getMessage()
             ], 500);
         }
-        
+
     }
 
     public function userToken(UserTokenRequest $request)

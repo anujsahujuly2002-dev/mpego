@@ -278,5 +278,35 @@ class AccidentDetailsController extends Controller
             ], 500);
         }
     }
-    
+
+    public function getAccidentDetailsById(Request $request)
+    {
+        try {
+            $accidentId = $request->input('accident_id');
+            if (empty($accidentId)) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Accident ID is required',
+                ], 400);
+            }
+            $accidentDetails = $this->accidentRepository->findById($accidentId);
+            if ($accidentDetails) {
+                return response()->json([
+                    'status' => true,
+                    'data' => $accidentDetails,
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Accident details not found',
+                ], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'An error occurred: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
 }

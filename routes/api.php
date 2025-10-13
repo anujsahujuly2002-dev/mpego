@@ -74,6 +74,7 @@ Route::middleware('auth:api')->group(function() {
         Route::post('drivers-registration-cards','driversRegistrationCards');
         Route::post("add-car-detail-and-car-insurence","carDetailAndCarInsurence");
         Route::post("update-accident-info","updateAccidentInfo");
+        Route::post('get-accident-details-by-id','getAccidentDetailsById');
 
     });
 
@@ -97,6 +98,8 @@ Route::middleware('auth:api')->group(function() {
 
     Route::controller(UserEmergencyController::class)->group(function() {
         Route::post('/get-user-emergency','getUserEmergency');
+        Route::post('/update-user-emergency','update');
+        Route::post('delete-user-emergency','delete');
         Route::get('/help-info','helpInfo');
         Route::get('/account-delete-reasons','getAccountDeleteReasons');
         Route::post('gift-card-list',"giftCardList");
