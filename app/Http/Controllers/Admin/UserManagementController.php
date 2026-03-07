@@ -39,6 +39,9 @@ class UserManagementController extends Controller
                     if (auth()->user()->can('client-view')) {
                         $btn .= ' <a href="'.route('admin.users.clients.view.details',base64_encode($row->id)).'" class="btn btn-soft-primary btn-icon btn-sm rounded-circle"> <i class="ti ti-eye"></i></a>';
                     }
+                    if (auth()->user()->can('employee-delete')) {
+                        $btn .= ' <button type="button" class="btn btn-soft-danger btn-icon btn-sm rounded-circle delete-user"  onclick="deleteRecord(\''.route('admin.users.employee.delete').'\','.$row->id.')"> <i class="ti ti-trash"></i></button>';
+                    }
                     return $btn;
                 })
                 ->rawColumns(['action', 'role'])

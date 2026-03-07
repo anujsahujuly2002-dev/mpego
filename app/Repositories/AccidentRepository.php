@@ -27,7 +27,7 @@ class AccidentRepository {
     }
 
     public function findById($id) {
-        return AccidentInfo::with([ 'users','accidentSeceneImages','vehicalDahicalImages','carSeatsImages','InjuryImages','repairEstimateImages','accidentContact'])->findOrFail($id);
+        return AccidentInfo::with(['users','accidentSeceneImages','vehicalDahicalImages','carSeatsImages','InjuryImages','repairEstimateImages','accidentContact','policeReportImage','otherDriverId','otherDriverInsurances','carDetails.carImages','carInsurenceInfo.carInsuranceInfoImages','otherDriverRegistrationCard'])->findOrFail($id);
     }
 
     public function getPreviousAccidentByUserId($userId) {
@@ -48,8 +48,9 @@ class AccidentRepository {
     }
 
     public function otherDriverId($data) {
-        return OtherDriverId::create([
-            'accident_id'=>$data['accident_id'],
+        return OtherDriverId::updateOrCreate([
+            'accident_id' => $data['accident_id'],
+        ],[
             'name'=>$data['name'],
             "license_no"=>$data['license_no'],
             'image'=>$data['fileName'],
@@ -57,8 +58,9 @@ class AccidentRepository {
     }
 
     public function driverInsurance($data) {
-        return DriverInsurance::create([
+        return DriverInsurance::updateOrCreate([
             'accident_id'=>$data['accident_id'],
+        ],[
             'member_name'=>$data['member_name'],
             "member_id"=>$data['member_id'],
             'image'=>$data['fileName']
@@ -66,8 +68,7 @@ class AccidentRepository {
     }
 
     public function driverRegistrationCard($data){
-        return DriversRegistrationCard::create([
-            'accident_id'=>$data['accident_id'],
+        return DriversRegistrationCard::updateOrCreate(['accident_id'=>$data['accident_id']],[
             'name'=>$data['name'],
             'registration_no'=>$data['registration_no'],
             'image'=>$data['fileName']
