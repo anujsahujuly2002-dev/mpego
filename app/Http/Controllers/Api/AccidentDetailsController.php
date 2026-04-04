@@ -14,6 +14,7 @@ use App\Http\Requests\UpdateAccidentInfoRequest;
 use App\Repositories\Auth\SignUpRepository;
 use App\Repositories\Upload\UploadImageRepository;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 class AccidentDetailsController extends Controller
 {
@@ -43,6 +44,7 @@ class AccidentDetailsController extends Controller
                 'data' => $accidentDetails
             ], 200);
         } catch (\Exception $e) {
+            Log::error('Error saving accident details: ' . $e->getMessage(), ['exception' => $e]);
             return response()->json([
                 'status' => false,
                 'message' => 'Failed to save accident details',

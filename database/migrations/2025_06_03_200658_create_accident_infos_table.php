@@ -18,7 +18,7 @@ return new class extends Migration
             $table->enum('user_type', ['driver', 'passenger']);
             $table->date('accident_date');
             $table->time('accident_time');
-            $table->string('who_was_with_you');
+            $table->string('who_was_with_you')->nullable();
             $table->text('description');
             $table->softDeletes(); // This will add a deleted_at column for soft deletes
             $table->timestamps();

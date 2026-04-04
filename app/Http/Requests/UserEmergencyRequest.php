@@ -36,7 +36,6 @@ class UserEmergencyRequest extends FormRequest
                 'string',
                 'regex:/^\+\d{1,3}-\d{3}-\d{3}-\d{4}$/', // Example format: +1-123-456-7890
                 'max:15', // Adjust max length as needed
-                'unique:user_emergencies,emergency_contact_phone'
             ],
         ];
         return $rules;
